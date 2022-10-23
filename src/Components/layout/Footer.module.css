@@ -1,0 +1,21 @@
+footer {
+  background-color: #111;
+
+  padding: 30px 0;
+}
+
+footer a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+footer a:hover,
+footer a:focus {
+  /* text-decoration: none; */
+  color: var(--active-color);
+}
+
+footer li {
+  padding-bottom: 5px;
+}

@@ -1,0 +1,53 @@
+.header {
+  width: 100%;
+  height: 5rem;
+  background-color: transparent;
+}
+
+.header nav {
+  height: 100%;
+}
+
+.header li {
+  margin-right: 1.2rem;
+}
+
+.header li:last-child {
+  margin: 0;
+}
+
+nav button {
+  background-color: transparent;
+  font-style: italic;
+
+  border: none;
+  padding: 10px 0;
+}
+
+.header button:hover,
+.header button:active,
+.header button.active {
+  color: var(--active-color);
+}
+
+.navIcon {
+  font-size: 0.9rem;
+  color: #aaa;
+
+  margin-right: 0.5rem;
+}
+
+.abs {
+  margin-right: 0;
+}
+
+@media (min-width: 768px) {
+  /* css vị trí Logo */
+  .abs {
+    position: absolute;
+    width: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+}

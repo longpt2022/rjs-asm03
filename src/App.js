@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Home from './pages/HomePage';
 import Shop from './pages/ShopPage';
@@ -8,19 +8,24 @@ import Cart from './pages/CartPage';
 import Checkout from './pages/CheckoutPage';
 import Login from './pages/LoginPage';
 import Register from './pages/RegisterPage';
+import Layout from './Components/layout/Layout';
 
 function App() {
   return (
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/shop" component={Shop} />
-      <Route path="/detail/:id" component={Detail} />
-      <Route path="/cart" component={Cart} />
-      <Route path="/checkout" component={Checkout} />
-      <Route path="/login" component={Login} />
-      <Route path="/register" component={Register} />
-      <Route path="*" component={Home} />
-    </Switch>
+    // 2. Tạo Router cho ứng dụng bằng react-router-dom@6
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Navigate replace to="/home" />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="*" element={<Navigate replace to="/home" />} />
+      </Routes>
+    </Layout>
   );
 }
 
