@@ -1,0 +1,9 @@
+.service h4 {
+  font-weight: 400;
+}
+
+@media (max-width: 992px) {
+  .service div {
+    text-align: center;
+  }
+}
