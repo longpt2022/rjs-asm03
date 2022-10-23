@@ -35,20 +35,13 @@ button:active:disabled {
 
 @media (max-width: 1200px) {
   .button {
-    font-size: 0.9rem;
+    font-size: 1rem;
     padding: 0.5rem 1.3rem;
   }
 }
 
 @media (max-width: 992px) {
   .button {
-    font-size: 0.7rem;
     padding: 0.4rem 1.1rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .button {
-    font-size: 0.6rem;
   }
 }
