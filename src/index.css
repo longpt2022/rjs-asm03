@@ -38,11 +38,14 @@ body::-webkit-scrollbar-thumb {
 
 /* CSS khi hover */
 .main-animation {
-  transition: transform 1s;
+  cursor: pointer;
+  transition: all 500ms;
 }
 
-.main-animation:hover {
-  transform: scale(1.1);
+.main-animation:hover,
+.main-animation:active,
+.main-animation.active {
+  opacity: 0.6;
 }
 
 /* CSS center */

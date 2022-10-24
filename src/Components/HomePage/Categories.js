@@ -5,7 +5,6 @@ import Product2 from '../../img/product_2.png';
 import Product3 from '../../img/product_3.png';
 import Product4 from '../../img/product_4.png';
 import Product5 from '../../img/product_5.png';
-import classes from './Categories.module.css';
 
 const Categories = () => {
   const navigate = useNavigate();
@@ -15,7 +14,7 @@ const Categories = () => {
     return (
       <img
         src={src}
-        className="w-100"
+        className="w-100 main-animation"
         alt={`Product ${num}`}
         onClick={() => navigate('/shop')}
       />
@@ -23,7 +22,7 @@ const Categories = () => {
   };
 
   return (
-    <section className={`${classes.categories} mb-5`}>
+    <section className="mb-5">
       <div className="text-center mb-4">
         <span className="text-secondary">CAREFULLY CREATED COLLECTIONS</span>
         <h4>BROWSE OUR CATEGORIES</h4>

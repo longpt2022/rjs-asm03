@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import LoadingSpinner from '../UI/LoadingSpinner/LoadingSpinner';
-import classes from './Products.module.css';
+import Popup from './Products/Popup';
+import { popupActions } from 'store/index';
 
 const Products = () => {
   // State lưu kết quả fetch
@@ -44,8 +46,18 @@ const Products = () => {
     return string.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   };
 
+  // Dùng redux hiển thị popup
+  const dispatch = useDispatch();
+  const isShowPopup = useSelector(state => state.popup.isShow);
+
+  const showPopupHandler = product => {
+    dispatch(popupActions.SHOW_POPUP(product));
+  };
+
   return (
-    <section className={`${classes.products} mb-5`}>
+    <section className="mb-5">
+      {isShowPopup && <Popup transformPrice={transformPrice} />}
+
       <div className="mb-4">
         <span className="text-secondary">MADE THE HARD WAY</span>
         <h4>TOP TRENDING PRODUCTS</h4>
@@ -68,7 +80,8 @@ const Products = () => {
                 <img
                   src={product.img1}
                   alt={product.category}
-                  className="w-100 mb-3"
+                  className="w-100 mb-3 main-animation"
+                  onClick={showPopupHandler.bind(this, product)}
                 />
                 <p className="fw-bold mb-1">{product.name}</p>
                 <span className="text-secondary">
