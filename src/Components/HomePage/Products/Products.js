@@ -3,9 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import LoadingSpinner from '../../UI/LoadingSpinner/LoadingSpinner';
 import Popup from './Popup';
-import { popupActions } from 'store/index';
+import { popupActions } from 'store/popup';
+import { productsActions } from 'store/products';
 
 const Products = () => {
+  const dispatch = useDispatch();
+
   // State lưu kết quả fetch
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -29,6 +32,9 @@ const Products = () => {
 
       const data = await response.json();
 
+      // Lưu data vào state product with redux
+      dispatch(productsActions.SET_PRODUCTS(data));
+
       // set data trả về với 8 phần tử đầu tiên
       setProductsData(data.slice(0, 8));
     } catch (err) {
@@ -47,7 +53,6 @@ const Products = () => {
   };
 
   // Dùng redux hiển thị popup
-  const dispatch = useDispatch();
   const isShowPopup = useSelector(state => state.popup.isShow);
 
   const showPopupHandler = product => {

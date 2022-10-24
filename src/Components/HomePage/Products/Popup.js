@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
-import { popupActions } from 'store/index';
+import { popupActions } from 'store/popup';
 import Button from 'Components/UI/Button/Button';
 import Modal from 'Components/UI/Modal/Modal';
 import classes from './Popup.module.css';
