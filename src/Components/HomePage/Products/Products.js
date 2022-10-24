@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import LoadingSpinner from '../UI/LoadingSpinner/LoadingSpinner';
-import Popup from './Products/Popup';
+import LoadingSpinner from '../../UI/LoadingSpinner/LoadingSpinner';
+import Popup from './Popup';
 import { popupActions } from 'store/index';
 
 const Products = () => {
