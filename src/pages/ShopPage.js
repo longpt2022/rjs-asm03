@@ -1,12 +1,14 @@
 import { useEffect } from 'react';
 
+import ProductList from 'Components/ShopPage/ProductList';
+
 const ShopPage = () => {
   useEffect(() => {
-    // tự đọng scroll về đầu trang
+    // tự động scroll về đầu trang
     window.scrollTo(0, 0);
   }, []);
 
-  return <h1>ShopPage</h1>;
+  return <ProductList />;
 };
 
 export default ShopPage;

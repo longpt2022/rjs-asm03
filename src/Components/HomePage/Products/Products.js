@@ -1,58 +1,44 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import useHttp from 'hooks/use-http';
 import LoadingSpinner from '../../UI/LoadingSpinner/LoadingSpinner';
 import Popup from './Popup';
 import { popupActions } from 'store/popup';
-import { productsActions } from 'store/products';
+
+// Hàm chuyển đổi thành dạng chuỗi và bổ sung các dấu chấm ngăn cách giữa các đơn vị
+const transformPrice = string => {
+  return string.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+};
 
 const Products = () => {
   const dispatch = useDispatch();
 
   // State lưu kết quả fetch
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [productsData, setProductsData] = useState([]);
   // console.log(productsData);
 
-  //  Hàm fetch xử lý api
-  const sendRequest = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
+  // Lấy ra url cần Fetch từ state redux
+  const urlFetch = useSelector(state => state.products.url);
 
-    try {
-      const response = await fetch(
-        'https://firebasestorage.googleapis.com/v0/b/funix-subtitle.appspot.com/o/Boutique_products.json?alt=media&token=dc67a5ea-e3e0-479e-9eaf-5e01bcd09c74'
-      );
-
-      // Nếu gặp lỗi thả ra lỗi
-      if (!response.ok) {
-        throw new Error('Request failed!');
-      }
-
-      const data = await response.json();
-
-      // Lưu data vào state product with redux
-      dispatch(productsActions.SET_PRODUCTS(data));
-
-      // set data trả về với 8 phần tử đầu tiên
-      setProductsData(data.slice(0, 8));
-    } catch (err) {
-      setError(err.message || 'Something went wrong!');
-    }
-    setIsLoading(false);
-  }, []);
+  //--- dùng custom hooks: useHttp()
+  const { isLoading, error, sendRequest: fetchData } = useHttp();
 
   useEffect(() => {
-    sendRequest();
-  }, [sendRequest]);
+    const transformData = data => {
+      // set data trả về với 8 phần tử đầu tiên
+      setProductsData(data.slice(0, 8));
+    };
 
-  // Hàm chuyển đổi thành dạng chuỗi vào bổ sung các dấu chấm ngăn cách giữa các đơn vị
-  const transformPrice = string => {
-    return string.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-  };
+    fetchData(
+      {
+        url: urlFetch,
+      },
+      transformData
+    );
+  }, [fetchData, urlFetch]);
 
-  // Dùng redux hiển thị popup
+  // Dùng redux lấy state hiển thị popup
   const isShowPopup = useSelector(state => state.popup.isShow);
 
   const showPopupHandler = product => {

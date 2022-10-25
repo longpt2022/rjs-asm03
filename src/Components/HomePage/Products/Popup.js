@@ -40,17 +40,17 @@ const Popup = props => {
         </div>
         <div className="col-lg-6 col-md-12">
           <div className="px-5 pt-lg-5 pb-2">
-            <h6 className="fw-bold mb-1">{productData.name}</h6>
+            <h5 className="fw-bold mb-1">{productData.name}</h5>
             <p className="mb-1">
               {props.transformPrice(productData.price)} VND
             </p>
             <span className={`${classes.desc} text-secondary`}>
-              {productData.long_desc}
+              {productData.short_desc}
             </span>
             <br />
           </div>
           <Button
-            className="px-4 py-1 ms-4 fs-6"
+            className="px-4 py-1 ms-4 mt-3 fs-6"
             onClick={viewDetailBtnHandler}
           >
             <FontAwesomeIcon icon={faCartShopping} className="fs-6 me-2" />

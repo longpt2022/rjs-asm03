@@ -1,0 +1,17 @@
+.productList button {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+
+  font-style: italic;
+  text-align: start;
+  background-color: transparent;
+  border: none;
+  padding: 0.4rem 0;
+  width: 100%;
+}
+
+.productList button:hover,
+.productList button:focus {
+  color: var(--active-color);
+}
