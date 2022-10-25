@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import classes from './ShopSideBar.module.css';
 
 // Sidebar data
 const initialCategories = [
@@ -34,7 +36,7 @@ const ShopSideBar = props => {
   return (
     <>
       <h5 className="py-3 m-0">CATEGORIES</h5>
-      <div>
+      <div className={classes.shopSideBar}>
         <h6 className="bg-dark text-white p-2 ps-3">APPLE</h6>
         <div className="text-muted">
           <button
