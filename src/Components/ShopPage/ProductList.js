@@ -1,6 +1,6 @@
-import useHttp from 'hooks/use-http';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faAngleDown,
@@ -8,16 +8,20 @@ import {
   faAngleDoubleRight,
 } from '@fortawesome/free-solid-svg-icons';
 
+import useHttp from 'hooks/use-http';
 import ShopSideBar from './ShopSideBar';
 import classes from './ProductList.module.css';
 import LoadingSpinner from 'Components/UI/LoadingSpinner/LoadingSpinner';
 
 // Hàm chuyển đổi thành dạng chuỗi và bổ sung các dấu chấm ngăn cách giữa các đơn vị
-const transformPrice = string => {
-  return string.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+const transformPrice = txt => {
+  return String(txt).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 };
 
 const ProductList = () => {
+  // Sử dụng useNavigate() để điều hướng trang
+  const navigate = useNavigate();
+
   // State lưu kết quả lọc sau khi fetch
   const [productsData, setProductsData] = useState([]);
   // console.log(productsData);
@@ -104,11 +108,11 @@ const ProductList = () => {
                       src={product.img1}
                       alt={product.category}
                       className="w-100 mb-3 main-animation"
-                      // onClick={}
+                      onClick={() => navigate(`/detail/${product._id.$oid}`)}
                     />
                     <p className="fw-bold mb-1">{product.name}</p>
                     <span className="text-secondary">
-                      {transformPrice(product.price)}
+                      {transformPrice(product.price)} VND
                     </span>
                   </div>
                 );

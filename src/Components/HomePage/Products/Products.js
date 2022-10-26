@@ -7,8 +7,8 @@ import Popup from './Popup';
 import { popupActions } from 'store/popup';
 
 // Hàm chuyển đổi thành dạng chuỗi và bổ sung các dấu chấm ngăn cách giữa các đơn vị
-const transformPrice = string => {
-  return string.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+const transformPrice = txt => {
+  return String(txt).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 };
 
 const Products = () => {
@@ -76,7 +76,7 @@ const Products = () => {
                 />
                 <p className="fw-bold mb-1">{product.name}</p>
                 <span className="text-secondary">
-                  {transformPrice(product.price)}
+                  {transformPrice(product.price)} VND
                 </span>
               </div>
             );

@@ -25,7 +25,7 @@ const Popup = props => {
   // Nút xem chi tiết và ấn popup
   const viewDetailBtnHandler = () => {
     hidePopupHandler();
-    navigate('/shop');
+    navigate(`/detail/${productData._id.$oid}`);
   };
 
   return (

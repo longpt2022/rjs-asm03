@@ -1,0 +1,32 @@
+/* CSS cho album ảnh */
+.detailProductImages {
+  display: flex;
+}
+
+.mainImg {
+  width: 80%;
+}
+
+.subImg {
+  width: 20%;
+}
+
+@media (min-width: 992px) {
+  .mainImg {
+    max-height: 360px;
+  }
+
+  .subImg {
+    max-height: 368px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .mainImg {
+    max-height: 500px;
+  }
+
+  .subImg {
+    max-height: 500px;
+  }
+}
