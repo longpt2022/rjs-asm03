@@ -1,0 +1,118 @@
+.auth {
+  background-image: url('../../img/banner1.jpg');
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 80vh;
+}
+
+.form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  max-width: 25rem;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  text-align: center;
+  color: #000;
+}
+
+.form h3 {
+  text-align: center;
+  font-weight: 300;
+  margin: 1.6rem 0 3rem;
+}
+
+.control {
+  margin-bottom: 0.5rem;
+}
+
+.control input {
+  font: inherit;
+  text-align: left;
+  color: #38015c;
+  width: 100%;
+  font-style: normal;
+
+  padding: 1rem;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-bottom: none;
+}
+
+.control input:last-child {
+  border-bottom: 1px solid #ccc;
+}
+
+.control input:hover,
+.control input:focus {
+  outline: none;
+}
+
+.actions {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* CSS button */
+.actions button {
+  font: inherit;
+  font-weight: 300;
+  font-style: normal;
+
+  background-color: var(--bg-main-color);
+  color: var(--white);
+
+  width: 100%;
+  border: 1px solid var(--bg-main-color);
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+}
+
+.actions button:hover,
+.actions button:active {
+  opacity: 0.8;
+}
+
+.actions button:focus {
+  outline: none;
+}
+
+.toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 2rem 0 1rem;
+  background-color: transparent;
+  color: #ccc;
+  border: none;
+  padding: 0.15rem 1.5rem;
+}
+
+.toggle button {
+  padding: 0.5rem;
+  background-color: transparent;
+  border: none;
+  color: dodgerblue;
+  font-style: italic;
+}
+
+.toggle button:hover {
+  background-color: transparent;
+  color: var(--active-color);
+}
+
+@media (max-width: 992px) {
+  .form {
+    position: relative;
+  }
+}

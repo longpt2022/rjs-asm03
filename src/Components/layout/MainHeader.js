@@ -63,7 +63,17 @@ const MainHeader = () => {
               </li>
               <li className="nav-item">
                 <FontAwesomeIcon icon={faUser} className={classes.navIcon} />
-                {buttonNav('login')}
+                <button
+                  className={
+                    location.pathname === '/login' ||
+                    location.pathname === '/register'
+                      ? classes.active
+                      : ''
+                  }
+                  onClick={() => navigate('/login')}
+                >
+                  Login
+                </button>
               </li>
             </ul>
           </div>
