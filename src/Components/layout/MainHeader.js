@@ -1,10 +1,22 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartFlatbed, faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCartFlatbed,
+  faUser,
+  faCaretDown,
+} from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { authActions } from 'store/auth';
 import classes from './MainHeader.module.css';
 
 const MainHeader = () => {
+  // Lấy currentUser state redux
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const currentUser = useSelector(state => state.auth.currentUser);
+  // Dùng useDispatch() cập nhật state redux
+  const dispatch = useDispatch();
+
   // Dùng useNavigate() hook để chuyển hướng trong ứng dụng.
   const navigate = useNavigate();
 
@@ -72,9 +84,25 @@ const MainHeader = () => {
                   }
                   onClick={() => navigate('/login')}
                 >
-                  Login
+                  {!isAuthenticated && 'Login'}
+                  {isAuthenticated && (
+                    <>
+                      {currentUser.fullName}
+                      <FontAwesomeIcon
+                        icon={faCaretDown}
+                        className={`${classes.navIcon} text-dark ms-2 me-0`}
+                      />
+                    </>
+                  )}
                 </button>
               </li>
+              {isAuthenticated && (
+                <li className="nav-item align-self-center">
+                  <button onClick={() => dispatch(authActions.ON_LOGOUT())}>
+                    (Logout)
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
         </div>

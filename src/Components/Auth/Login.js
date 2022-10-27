@@ -13,7 +13,7 @@ const Login = () => {
   const [enteredEmail, setEnteredEmail] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
 
-  // Dùng redux lưu login state
+  // Dùng useDispatch() cập nhật state redux
   const dispatch = useDispatch();
 
   // Lấy data từ localStorage
