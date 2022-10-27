@@ -1,4 +1,7 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { authActions } from 'store/auth';
 
 import classes from './Login.module.css';
 
@@ -6,24 +9,100 @@ const Login = () => {
   // Dùng useNavigate() để điều hướng trang
   const navigate = useNavigate();
 
+  // dùng useRef() để lấy value input
+  const [enteredEmail, setEnteredEmail] = useState('');
+  const [enteredPassword, setEnteredPassword] = useState('');
+
+  // Dùng redux lưu login state
+  const dispatch = useDispatch();
+
+  // Lấy data từ localStorage
+  const dataGetStorage = localStorage.getItem('userArr');
+  // Xử lý null localStorage
+  let userArr = dataGetStorage ? JSON.parse(dataGetStorage) : [];
+
+  // State lưu message nếu validate lỗi
+  const [message, setMessage] = useState('');
+
+  const submitHandler = event => {
+    event.preventDefault();
+    // console.log(userArr);
+
+    const enteredData = {
+      email: enteredEmail,
+      password: enteredPassword,
+    };
+
+    //--- optional: validation
+    let userValidated = false;
+    // Tìm thông tin current user
+    let currentUser = userArr.find(acc => acc.email === enteredData.email);
+    // console.log(currentUser);
+
+    if (!currentUser) {
+      setMessage('Tài khoản chưa đăng ký!');
+      setEnteredPassword('');
+      // Kiểm tra Password
+    } else {
+      if (currentUser?.password === enteredData.password) {
+        userValidated = true;
+      } else {
+        setEnteredPassword('');
+        setMessage('Wrong password!');
+      }
+    }
+
+    // Xử lý nếu đăng nhập thành công
+    if (userValidated) {
+      // cập nhật dữ liệu state Redux bằng action login
+      dispatch(authActions.ON_LOGIN(currentUser));
+      alert('Đăng nhập thành công!');
+      console.log(currentUser);
+    }
+  };
+
+  const emailChangeHandler = event => {
+    if (event.target.value.trim().length > 0) {
+      setMessage('');
+    }
+    setEnteredEmail(event.target.value);
+  };
+
+  const passwordChangeHandler = event => {
+    if (event.target.value.trim().length > 0) {
+      setMessage('');
+    }
+    setEnteredPassword(event.target.value);
+  };
+
   return (
     <section className={classes.auth}>
-      <form className={classes.form}>
+      <form className={classes.form} onSubmit={submitHandler}>
         <h3>Sign In</h3>
 
         <div className={classes.control}>
-          <input type="email" id="email" placeholder="Email" required />
+          <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            required
+            value={enteredEmail}
+            onChange={emailChangeHandler}
+          />
 
           <input
             type="password"
             id="password"
             placeholder="Password"
             required
+            value={enteredPassword}
+            onChange={passwordChangeHandler}
           />
         </div>
 
         <div className={classes.actions}>
-          <button>SIGN UP</button>
+          {!message && <button>SIGN IN</button>}
+          {message && <button className="text-danger">{message}</button>}
         </div>
 
         <div className={classes.toggle}>

@@ -18,13 +18,8 @@ const Register = () => {
 
   // Lấy data từ localStorage
   const dataGetStorage = localStorage.getItem('userArr');
-  let userArr;
   // Xử lý null localStorage
-  if (dataGetStorage) {
-    userArr = JSON.parse(dataGetStorage);
-  } else {
-    userArr = [];
-  }
+  let userArr = dataGetStorage ? JSON.parse(dataGetStorage) : [];
 
   // State lưu message nếu validate lỗi
   const [message, setMessage] = useState('');
@@ -87,6 +82,7 @@ const Register = () => {
             placeholder="Full Name"
             required
             ref={fullNameInputRef}
+            onChange={() => setMessage('')}
           />
           <input
             type="email"
@@ -94,6 +90,7 @@ const Register = () => {
             placeholder="Email"
             required
             ref={emailInputRef}
+            onChange={() => setMessage('')}
           />
           <input
             type="password"
@@ -101,6 +98,7 @@ const Register = () => {
             placeholder="Password"
             required
             ref={passwordInputRef}
+            onChange={() => setMessage('')}
           />
           <input
             type="number"
@@ -108,6 +106,7 @@ const Register = () => {
             placeholder="Phone"
             required
             ref={phoneInputRef}
+            onChange={() => setMessage('')}
           />
         </div>
 
