@@ -7,7 +7,7 @@ import LoadingSpinner from 'Components/UI/LoadingSpinner/LoadingSpinner';
 import DetailProductImages from './DetailProductImages';
 import ProductDescription from './ProductDescription';
 import RelatedProduct from './RelatedProduct';
-// import DetailProductForm from './DetailProductForm';
+import DetailProductForm from './DetailProductForm';
 
 // Hàm chuyển đổi thành dạng chuỗi và bổ sung các dấu chấm ngăn cách giữa các đơn vị
 const transformPrice = txt => {
@@ -100,8 +100,8 @@ const DetailProduct = () => {
                     {productData.category}
                   </span>
                 </p>
+                <DetailProductForm id={params.id} />
               </div>
-              {/* <DetailProductForm /> */}
             </div>
           </div>
 

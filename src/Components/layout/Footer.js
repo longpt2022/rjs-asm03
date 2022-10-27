@@ -4,7 +4,7 @@ import classes from './Footer.module.css';
 
 // Tạo footer by bootstrap 5
 const Footer = () => (
-  <footer className={`${classes.footer}w-100 flex-shrink-0`}>
+  <footer className={`${classes.footer} w-100 flex-shrink-0`}>
     <div className="container py-4">
       <div className="row gy-4 gx-5">
         <div className="col-lg-4 col-md-6">

@@ -80,7 +80,7 @@ const ProductList = () => {
         <div className="col-lg-9 mb-4 mb-lg-0">
           <div>
             <div className={classes.headList}>
-              <input type="text" placeholder="Enter search here" />
+              <input type="text" placeholder="Enter Search Here!" />
               <button className="px-1">
                 Default sorting
                 <FontAwesomeIcon icon={faAngleDown} className="ms-4" />
