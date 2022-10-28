@@ -3,6 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
+// import react-toastify để tạo thông báo
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { cartActions } from 'store/cart';
 import classes from './CartItem.module.css';
 
@@ -37,13 +41,33 @@ const CartItem = props => {
 
   // Xử lý remove cart
   const clickRemoveHandler = id => {
-    // if (confirm('Are you sure?')) {
+    if (window.confirm('Are you sure?')) {
+      dispatch(cartActions.DELETE_CART(id));
 
-    // } else {
-    //   console.log('You canceled delete!');
-    // }
-
-    dispatch(cartActions.DELETE_CART(id));
+      // toast thông báo thành công
+      toast.success('Deleted!', {
+        position: 'top-right',
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    } else {
+      // toast thông báo hủy
+      toast.warn('Canceled!', {
+        position: 'top-right',
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    }
   };
 
   return (
@@ -82,6 +106,7 @@ const CartItem = props => {
           onClick={clickRemoveHandler.bind(null, props.cart._id.$oid)}
           className="p-2 active-animation"
         />
+        <ToastContainer className="text-start" />
       </div>
     </li>
   );

@@ -2,6 +2,10 @@ import { useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
+// import react-toastify để tạo thông báo
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import classes from './DetailProductForm.module.css';
 import { useDispatch } from 'react-redux';
 import { cartActions } from 'store/cart';
@@ -50,7 +54,16 @@ const DetailProductForm = props => {
       })
     );
 
-    // props.onAddToCart(enteredQuantityNumber);
+    toast.success('Add success!', {
+      position: 'top-right',
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
   };
 
   // Xử lý ấn giảm
@@ -92,6 +105,7 @@ const DetailProductForm = props => {
 
         <button className="no-copy-text">Add to cart</button>
       </form>
+      <ToastContainer />
 
       {quantityIsValid && <p className="mt-1 text-white no-copy-text">.</p>}
       {!quantityIsValid && (

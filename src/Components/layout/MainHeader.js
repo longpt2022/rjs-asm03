@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -42,6 +43,29 @@ const MainHeader = () => {
     );
   };
 
+  // Xử lý hiệu ứng "bump" khi ấn add cart từ detail page
+  const listCart = useSelector(state => state.cart.listCart);
+
+  const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
+
+  const btnClasses = `${btnIsHighlighted ? classes.bump : ''}`;
+
+  useEffect(() => {
+    if (listCart.length === 0) {
+      return;
+    }
+
+    setBtnIsHighlighted(true);
+
+    const timer = setTimeout(() => {
+      setBtnIsHighlighted(false);
+    }, 300);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [listCart]);
+
   return (
     <header className={classes.header}>
       <nav className="navbar navbar-light navbar-expand-md bg-faded">
@@ -66,7 +90,7 @@ const MainHeader = () => {
               <li className="nav-item">{buttonNav('shop')}</li>
             </ul>
             <ul className="nav navbar-nav ms-auto w-100 justify-content-end">
-              <li className="nav-item">
+              <li className={`nav-item ${btnClasses}`}>
                 <FontAwesomeIcon
                   icon={faCartFlatbed}
                   className={classes.navIcon}
