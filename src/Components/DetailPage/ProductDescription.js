@@ -20,7 +20,7 @@ const ProductDescription = props => {
 
   return (
     <div>
-      <Button className="fs-6 mt-5 mb-3" onClick={viewDescBtnHandler}>
+      <Button className="fs-6 mt-3 mb-3" onClick={viewDescBtnHandler}>
         DESCRIPTION
       </Button>
       {isShowDesc && (

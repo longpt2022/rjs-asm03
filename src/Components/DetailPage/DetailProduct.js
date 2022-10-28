@@ -100,7 +100,7 @@ const DetailProduct = () => {
                     {productData.category}
                   </span>
                 </p>
-                <DetailProductForm id={params.id} />
+                <DetailProductForm productData={productData} />
               </div>
             </div>
           </div>

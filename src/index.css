@@ -48,6 +48,15 @@ body::-webkit-scrollbar-thumb {
   opacity: 0.6;
 }
 
+/* CSS chặn copy text */
+.no-copy-text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
 /* CSS center */
 .centered {
   margin: 3rem auto;

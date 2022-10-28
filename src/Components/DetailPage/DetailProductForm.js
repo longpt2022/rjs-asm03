@@ -3,8 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 import classes from './DetailProductForm.module.css';
+import { useDispatch } from 'react-redux';
+import { cartActions } from 'store/cart';
 
 const DetailProductForm = props => {
+  // Dùng useDispatch() cập nhật state redux
+  const dispatch = useDispatch();
+  // Lấy dữ liệu cart state redux
+
   const quantityInputRef = useRef();
 
   // Giá trị của input quantity
@@ -31,8 +37,18 @@ const DetailProductForm = props => {
       setQuantityIsValid(true);
     }
 
-    console.log(props.id);
-    console.log(enteredQuantityNumber);
+    // console.log(props.productData.id);
+    // console.log(enteredQuantityNumber);
+
+    // Lưu lại vào state redux cart
+    dispatch(
+      cartActions.ADD_CART({
+        // data product truyền từ cha
+        ...props.productData,
+        // số lượng product nhập vào input
+        quantity: enteredQuantityNumber,
+      })
+    );
 
     // props.onAddToCart(enteredQuantityNumber);
   };
@@ -50,33 +66,38 @@ const DetailProductForm = props => {
   return (
     <>
       <form className={classes.form} onSubmit={submitHandler}>
-        <label htmlFor={`quantity_${props.id}`}>QUANTITY</label>
+        <div className={classes.inputForm}>
+          <label htmlFor={`quantity_${props.id}`}>QUANTITY</label>
 
-        <FontAwesomeIcon
-          icon={faCaretLeft}
-          onClick={clickLeftHandler}
-          className="p-3"
-        />
-        <input
-          ref={quantityInputRef}
-          id={`quantity_${props.id}`}
-          type="number"
-          min="1"
-          max="5"
-          step="1"
-          defaultValue="1"
-        />
-        <FontAwesomeIcon
-          icon={faCaretRight}
-          onClick={clickRightHandler}
-          className="p-3 me-2"
-        />
+          <FontAwesomeIcon
+            icon={faCaretLeft}
+            onClick={clickLeftHandler}
+            className="p-2"
+          />
+          <input
+            ref={quantityInputRef}
+            id={`quantity_${props.id}`}
+            type="number"
+            // min="1"
+            // max="5"
+            step="1"
+            defaultValue="1"
+          />
+          <FontAwesomeIcon
+            icon={faCaretRight}
+            onClick={clickRightHandler}
+            className="p-2 me-2"
+          />
+        </div>
 
-        <button className="px-4 py-2 fs-6 fw-light">Add to cart</button>
+        <button className="no-copy-text">Add to cart</button>
       </form>
 
+      {quantityIsValid && <p className="mt-1 text-white no-copy-text">.</p>}
       {!quantityIsValid && (
-        <p className="mt-1 text-warning">Please enter a valid amount (1-5).</p>
+        <p className="mt-1 text-warning no-copy-text">
+          Please enter a valid quantity (1-5).
+        </p>
       )}
     </>
   );

@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import popupReducer from './popup';
 import productsReducer from './products';
 import authReducer from './auth';
+import cartReducer from './cart';
 
 // Tạo Redux store
 const store = configureStore({
@@ -9,6 +10,7 @@ const store = configureStore({
     popup: popupReducer,
     products: productsReducer,
     auth: authReducer,
+    cart: cartReducer,
   },
 });
 
