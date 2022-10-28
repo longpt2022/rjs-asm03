@@ -1,0 +1,23 @@
+.titleCart {
+  margin: 3rem 0 1.5rem;
+}
+
+.shoppingBtn {
+  border: none;
+  background-color: transparent;
+  font-style: italic;
+  color: rgb(112, 112, 112);
+
+  display: flex;
+  align-items: center;
+}
+
+.checkoutBtn {
+  border: 1px solid var(--black);
+  padding: 10px;
+  font-style: italic;
+  color: rgb(112, 112, 112);
+
+  display: flex;
+  align-items: center;
+}

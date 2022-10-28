@@ -1,55 +1,29 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
-import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import {
+  faArrowLeftLong,
+  faArrowRightLong,
+} from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
-import { cartActions } from 'store/cart';
+import CartItem from './CartItem';
+import CartTotal from './CartTotal';
+import classes from './CartList.module.css';
+
+// Hàm chuyển đổi thành dạng chuỗi và bổ sung các dấu chấm ngăn cách giữa các đơn vị
+const transformPrice = txt => {
+  return String(txt).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+};
 
 const CartList = () => {
+  // Dùng useNavigate() để điều hướng trang
+  const navigate = useNavigate();
+
   // Lấy state redux
   const listCart = useSelector(state => state.cart.listCart);
-  const totalQuantity = useSelector(state => state.cart.totalQuantity);
-
-  const dispatch = useDispatch();
 
   // Biến xác định có cart nào k
   const hasCart = listCart.length > 0;
-
-  // Hàm cộng tổng tất cả quantity có trong listCart
-  const numberOfCartItems = listCart.reduce((curNumber, item) => {
-    return curNumber + item.quantity;
-  }, 0);
-
-  // Hàm xử lý giảm 1
-  const clickLeftHandler = productData => {
-    if (productData.quantity > 1) {
-      dispatch(
-        cartActions.UPDATE_CART({
-          // data product truyền từ cha
-          ...productData,
-          // số lượng product nhập vào input
-          quantity: -1,
-        })
-      );
-    }
-  };
-
-  // Hàm xử lý tăng 1
-  const clickRightHandler = productData => {
-    dispatch(
-      cartActions.UPDATE_CART({
-        // data product truyền từ cha
-        ...productData,
-        // số lượng product nhập vào input
-        quantity: 1,
-      })
-    );
-  };
-
-  // Xử lý remove cart
-  const clickRemoveHandler = id => {
-    dispatch(cartActions.DELETE_CART(id));
-  };
 
   return (
     <section className="pb-5">
@@ -57,49 +31,55 @@ const CartList = () => {
         <h4 className="p-4">CART</h4>
         <span className="p-4 text-secondary">CART</span>
       </div>
-      <div className="row">
-        <div className="col-lg-9">
-          {listCart.map(cart => {
-            return (
-              <div key={cart._id.$oid} className="no-copy-text row">
-                <span className="col-lg-2">{cart.name}</span>
-                <div className="col-lg-2">
-                  <p>{cart.price}</p>
-                  <span>VND</span>
-                </div>
-                <div className="col-lg-2">
-                  <FontAwesomeIcon
-                    icon={faCaretLeft}
-                    onClick={clickLeftHandler.bind(null, cart)}
-                    className="p-2"
-                  />
+      <h4 className={classes.titleCart}>SHOPPING CART</h4>
 
-                  <b>{cart.quantity}</b>
-                  <FontAwesomeIcon
-                    icon={faCaretRight}
-                    onClick={clickRightHandler.bind(null, cart)}
-                    className="p-2 me-2"
+      <div className="row gx-0">
+        <div className="col-lg-8 text-center pe-lg-4">
+          <ul className="p-0">
+            <li className="row gx-0 bg-light pt-3 pb-2">
+              <h6 className="col-2">IMAGE</h6>
+              <h6 className="col-2">PRODUCT</h6>
+              <h6 className="col-2">PRICE</h6>
+              <h6 className="col-2">QUANTITY</h6>
+              <h6 className="col-2">TOTAL</h6>
+              <h6 className="col-2">REMOVE</h6>
+            </li>
+            {hasCart &&
+              listCart.map(cart => {
+                return (
+                  <CartItem
+                    key={cart._id.$oid}
+                    cart={cart}
+                    transformPrice={transformPrice}
                   />
-                </div>
-                <div className="col-lg-2">
-                  <p>{cart.price * cart.quantity}</p>
-                  <span>VND</span>
-                </div>
-                <div className="col-lg-2">
-                  <FontAwesomeIcon
-                    icon={faTrashCan}
-                    onClick={clickRemoveHandler.bind(null, cart._id.$oid)}
-                    className="p-2"
-                  />
-                </div>
-              </div>
-            );
-          })}
+                );
+              })}
+            {!hasCart && (
+              <p className="centered text-secondary">
+                Chưa có sản phẩm nào trong giỏ hàng
+              </p>
+            )}
+          </ul>
+          <div className="d-flex justify-content-between bg-light mt-5 p-4">
+            <button
+              onClick={() => navigate('/shop')}
+              className={`${classes.shoppingBtn} active-animation`}
+            >
+              <FontAwesomeIcon icon={faArrowLeftLong} className="me-2" />
+              Continue shopping
+            </button>
+            <button
+              onClick={() => navigate('/checkout')}
+              className={`${classes.checkoutBtn} active-animation`}
+            >
+              Proceed to checkout
+              <FontAwesomeIcon icon={faArrowRightLong} className="ms-2" />
+            </button>
+          </div>
         </div>
-        <div className="col-lg-3">
-          <p>Total products: {numberOfCartItems}</p>
-          <p>{totalQuantity}</p>
-          {hasCart && <button>Order</button>}
+
+        <div className="col-lg-4">
+          <CartTotal listCart={listCart} transformPrice={transformPrice} />
         </div>
       </div>
     </section>

@@ -1,0 +1,9 @@
+.cart-item {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cart-item h6 {
+  font-size: 1.1rem;
+}
