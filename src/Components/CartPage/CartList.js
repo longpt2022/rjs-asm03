@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
 import { cartActions } from 'store/cart';
 
@@ -45,6 +46,11 @@ const CartList = () => {
     );
   };
 
+  // Xử lý remove cart
+  const clickRemoveHandler = id => {
+    dispatch(cartActions.DELETE_CART(id));
+  };
+
   return (
     <section className="pb-5">
       <div className="d-flex justify-content-between bg-light p-5 mb-4">
@@ -78,6 +84,13 @@ const CartList = () => {
                 <div className="col-lg-2">
                   <p>{cart.price * cart.quantity}</p>
                   <span>VND</span>
+                </div>
+                <div className="col-lg-2">
+                  <FontAwesomeIcon
+                    icon={faTrashCan}
+                    onClick={clickRemoveHandler.bind(null, cart._id.$oid)}
+                    className="p-2"
+                  />
                 </div>
               </div>
             );

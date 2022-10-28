@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 // Lấy ra listCart từ localStorage
-const dataGetStorage = localStorage.getItem('listCart');
+const dataGetStorage = localStorage.getItem('cart');
 // Xử lý data nhận về
 let listCartLocal = dataGetStorage && JSON.parse(dataGetStorage).listCart;
 let totalQuantityLocal =
@@ -47,7 +47,7 @@ const cartSlice = createSlice({
       state.totalQuantity = updatedTotalQuantity;
       // lưu lại vào localStorage
       localStorage.setItem(
-        'listCart',
+        'cart',
         JSON.stringify({
           listCart: updatedListCart,
           totalQuantity: updatedTotalQuantity,
@@ -86,14 +86,47 @@ const cartSlice = createSlice({
       state.totalQuantity = updatedTotalQuantity;
       // lưu lại vào localStorage
       localStorage.setItem(
-        'listCart',
+        'cart',
         JSON.stringify({
           listCart: updatedListCart,
           totalQuantity: updatedTotalQuantity,
         })
       );
     },
-    DELETE_CART(state, action) {},
+    DELETE_CART(state, action) {
+      // Tìm id của item
+      const existingCartItemIndex = state.listCart.findIndex(
+        item => item._id.$oid === action.payload
+      );
+      const existingItem = state.listCart[existingCartItemIndex];
+
+      // Tính lại giá trị total
+      const updatedTotalQuantity =
+        state.totalQuantity - existingItem.price * existingItem.quantity;
+
+      // lấy ra tất cả cart có giá trị khác id payload nhận vào
+      let updatedListCart = state.listCart.filter(
+        item => item._id.$oid !== action.payload
+      );
+
+      // Giá trị trả về sau khi delete
+      state.listCart = updatedListCart;
+      state.totalQuantity = updatedTotalQuantity;
+
+      // Nếu k còn cart nào xóa khỏi storage
+      if (updatedListCart.length === 0) {
+        localStorage.removeItem('cart');
+      } else {
+        // lưu lại vào localStorage
+        localStorage.setItem(
+          'cart',
+          JSON.stringify({
+            listCart: updatedListCart,
+            totalQuantity: updatedTotalQuantity,
+          })
+        );
+      }
+    },
   },
 });
 
