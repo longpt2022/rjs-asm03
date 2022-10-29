@@ -127,6 +127,10 @@ const cartSlice = createSlice({
         );
       }
     },
+    SET_DEFAULT(state) {
+      state.listCart = [];
+      state.totalQuantity = 0;
+    },
   },
 });
 

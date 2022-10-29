@@ -34,6 +34,7 @@ const Register = () => {
       email: emailInputRef.current.value,
       password: passwordInputRef.current.value,
       phone: phoneInputRef.current.value,
+      orders: [],
     };
 
     // Kiểm tra trùng Username
@@ -48,7 +49,7 @@ const Register = () => {
 
     // Validate dữ liệu hợp lệ
     if (!isRequired(enteredData.fullName)) {
-      setMessage('Vui lòng nhập First Name!');
+      setMessage('Vui lòng nhập Full Name!');
     } else if (!isRequired(enteredData.email)) {
       setMessage('Vui lòng nhập Email!');
     } else if (sameEmail) {
@@ -58,7 +59,7 @@ const Register = () => {
     } else if (enteredData.password.length < 8) {
       setMessage('Password nên nhiều hơn 8 ký tự!');
     } else if (!isRequired(enteredData.phone)) {
-      setMessage('Vui lòng nhập phone!');
+      setMessage('Vui lòng nhập Phone number!');
     } else {
       setMessage('');
       // Thêm 1 User vào 'userArr'

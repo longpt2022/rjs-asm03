@@ -1,5 +1,13 @@
+import { useEffect } from 'react';
+
+import Checkout from 'Components/CheckoutPage/Checkout';
+
 const CheckoutPage = () => {
-  return <h1>CheckoutPage</h1>;
+  useEffect(() => {
+    // tự động scroll về đầu trang
+    window.scrollTo(0, 0);
+  }, []);
+  return <Checkout />;
 };
 
 export default CheckoutPage;
