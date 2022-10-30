@@ -1,5 +1,6 @@
 import MainHeader from './MainHeader';
 import Footer from './Footer';
+import ChatApp from 'Components/UI/ChatApp/ChatApp';
 import classes from './Layout.module.css';
 
 const Layout = props => {
@@ -8,6 +9,7 @@ const Layout = props => {
       <MainHeader />
       <main className={`${classes.main} container`}>{props.children}</main>
       <Footer />
+      <ChatApp />
     </>
   );
 };

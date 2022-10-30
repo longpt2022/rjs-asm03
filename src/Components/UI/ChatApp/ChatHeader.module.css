@@ -1,0 +1,23 @@
+.chatHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 57px;
+  border-radius: inherit;
+
+  background-color: #fff;
+}
+
+.chatHeader h6 {
+  font-family: sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.chatHeader button {
+  background-color: #e4e7ea;
+  color: #868686;
+  font-style: italic;
+  font-size: 0.8rem;
+}

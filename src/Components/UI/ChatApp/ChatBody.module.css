@@ -1,0 +1,32 @@
+.chatBody {
+  position: relative;
+  height: 360px;
+
+  padding-right: 20%;
+}
+
+.customerMess {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 70%;
+}
+
+.customerMess p {
+  background-color: #0099ff;
+}
+
+.adminMess {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 70%;
+}
+
+/* .divider:after,
+.divider:before {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #eee;
+} */

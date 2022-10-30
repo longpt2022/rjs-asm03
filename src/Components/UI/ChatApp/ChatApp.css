@@ -1,0 +1,92 @@
+/* Cách dùng CSS để ẩn hiện popup */
+
+/* tạo 1 check box và ẩn nó đi */
+#check {
+  display: none !important;
+}
+
+/* luôn ẩn icon close nút popup */
+.chat-btn .close {
+  display: none;
+}
+
+/* Hiệu ứng chuyển giữa close icon và comment icon */
+.chat-btn i,
+.chat-btn svg {
+  transition: all 0.9s ease;
+}
+
+#check:checked ~ .chat-btn .close {
+  display: block;
+  pointer-events: auto;
+  transform: rotate(180deg);
+}
+
+#check:checked ~ .chat-btn .comment {
+  display: none;
+}
+
+.chat-btn .comment {
+  font-size: 33px;
+  color: #fff !important;
+}
+
+/* Vị trí của nút popup */
+.chat-btn {
+  position: absolute;
+  right: 14px;
+  bottom: 30px;
+  cursor: pointer;
+}
+
+/* Css nút popup */
+.chat-btn {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 50px;
+  background-color: var(--bg-main-color);
+  color: #fff;
+  font-size: 22px;
+  border: none;
+}
+
+/* Vị trí của popup */
+.chat-app-wrapper {
+  position: absolute;
+  right: 5rem;
+  bottom: 5rem;
+
+  width: 500px;
+  opacity: 0;
+  transition: all 0.4s;
+
+  border-radius: 25px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#check:checked ~ .chat-app-wrapper {
+  opacity: 1;
+}
+
+/* css avatarImg */
+.avatarImg {
+  width: 35px;
+  height: 100%;
+
+  background-color: #f5f6f7;
+  border-radius: 25px;
+}
+
+/* CSS scroll bar */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--gray);
+  border-radius: 50px;
+}
