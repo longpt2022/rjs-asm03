@@ -1,10 +1,11 @@
 .thankyou-wrapper {
   width: 100%;
+  min-height: 45rem;
   height: auto;
   margin: auto;
   background: #ffffff;
-  padding: 10px 0px 50px;
 }
+
 .thankyou-wrapper h1 {
   font: 100px Arial, Helvetica, sans-serif;
   text-align: center;
@@ -12,8 +13,11 @@
   padding: 0px 10px 10px;
 }
 
-.thankyou-wrapper p {
-  font: 1.3rem Arial, Helvetica, sans-serif;
+.thankyou-wrapper h1 img {
+  width: 100%;
+}
+
+.thankyou-wrapper h6 {
   text-align: center;
   color: #333333;
   padding: 5px 10px 10px;

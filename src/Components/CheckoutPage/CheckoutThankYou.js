@@ -24,41 +24,30 @@ const CheckoutThankYou = () => {
   }, [dispatch]);
 
   return (
-    <section className="login-main-wrapper">
-      <div className="main-container">
-        <div className="login-process">
-          <div className="login-main-container">
-            <div className={classes['thankyou-wrapper']}>
-              <h1>
-                <img
-                  src="http://montco.happeningmag.com/wp-content/uploads/2014/11/thankyou.png"
-                  alt="thanks"
-                />
-              </h1>
-              <p>for contacting us, we will get in touch with you soon... </p>
-              <div className="centered mt-4">
-                <Button
-                  className="me-4"
-                  onClick={() => {
-                    navigate('/');
-                  }}
-                >
-                  Back to home
-                </Button>
-                <Button
-                  onClick={() => {
-                    navigate('/shop');
-                  }}
-                >
-                  Shopping more
-                </Button>
-              </div>
-              <div className="clr"></div>
-            </div>
-            <div className="clr"></div>
-          </div>
-        </div>
-        <div className="clr"></div>
+    <section className={`${classes['thankyou-wrapper']} container py-5 my-5`}>
+      <h1>
+        <img
+          src="http://montco.happeningmag.com/wp-content/uploads/2014/11/thankyou.png"
+          alt="thanks"
+        />
+      </h1>
+      <h6>for contacting us, we will get in touch with you soon... </h6>
+      <div className="centered mt-4">
+        <Button
+          className="me-4"
+          onClick={() => {
+            navigate('/');
+          }}
+        >
+          Back to home
+        </Button>
+        <Button
+          onClick={() => {
+            navigate('/shop');
+          }}
+        >
+          Shopping more
+        </Button>
       </div>
     </section>
   );
