@@ -49,7 +49,7 @@ const ProfileFormInfo = () => {
               alt="avt"
             />
             <span className="font-weight-bold">Long Phạm</span>
-            <span className="text-black-50">{enteredEmail || '@longpt27'}</span>
+            <span className="text-black-50">{'longpt27' || enteredEmail}</span>
             <span> </span>
           </div>
         </div>

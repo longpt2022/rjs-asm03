@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 // import react-toastify để tạo thông báo
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,6 +12,8 @@ import classes from './DetailProductForm.module.css';
 import { cartActions } from 'store/cart';
 
 const DetailProductForm = props => {
+  const navigate = useNavigate();
+
   // Dùng useDispatch() cập nhật state redux
   const dispatch = useDispatch();
 
@@ -27,16 +30,7 @@ const DetailProductForm = props => {
 
     // Nếu chưa đăng nhập
     if (!isAuthenticated) {
-      return toast.warning('Please login!', {
-        position: 'top-center',
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      navigate('/login');
     }
 
     // lấy ra giá trị Quantity input
