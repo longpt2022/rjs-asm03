@@ -9,6 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import useHttp from 'hooks/use-http';
+import ProductListSearch from './ProductListSearch';
 import ShopSideBar from './ShopSideBar';
 import classes from './ProductList.module.css';
 import LoadingSpinner from 'Components/UI/LoadingSpinner/LoadingSpinner';
@@ -74,13 +75,17 @@ const ProductList = () => {
       </div>
       <div className="row mb-lg-4">
         <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
-          <ShopSideBar setCategory={setCategory} />
+          <ShopSideBar onSetCategory={setCategory} />
         </div>
 
         <div className="col-lg-9 mb-4 mb-lg-0">
           <div>
             <div className={classes.headList}>
-              <input type="text" placeholder="Enter Search Here!" />
+              <ProductListSearch
+                onSearchProduct={setProductsData}
+                urlFetch={urlFetch}
+                // onSetCategory={setCategory}
+              />
               <button className="px-1">
                 Default sorting
                 <FontAwesomeIcon icon={faAngleDown} className="ms-4" />

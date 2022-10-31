@@ -30,7 +30,7 @@ const ShopSideBar = props => {
   // set lại category khi click
   const clickCategoryHandler = categoryClicked => {
     // Sử dụng hàm setCategory() lấy từ cha
-    props.setCategory(categoryClicked);
+    props.onSetCategory(categoryClicked);
   };
 
   return (
