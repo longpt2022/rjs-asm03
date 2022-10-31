@@ -1,5 +1,7 @@
-import useHttp from 'hooks/use-http';
 import { useState } from 'react';
+
+import useHttp from 'hooks/use-http';
+import classes from './ProductListSearch.module.css';
 
 const ProductListSearch = props => {
   const [enteredSearch, setEnteredSearch] = useState('');
@@ -44,6 +46,7 @@ const ProductListSearch = props => {
 
   return (
     <input
+      className={classes.input}
       type="text"
       placeholder="Enter Search Here!"
       value={enteredSearch}

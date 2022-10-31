@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faAngleDown,
   faAngleDoubleLeft,
   faAngleDoubleRight,
 } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +12,7 @@ import ProductListSearch from './ProductListSearch';
 import ShopSideBar from './ShopSideBar';
 import classes from './ProductList.module.css';
 import LoadingSpinner from 'Components/UI/LoadingSpinner/LoadingSpinner';
+import ProductListSort from './ProductListSort';
 
 // Hàm chuyển đổi thành dạng chuỗi và bổ sung các dấu chấm ngăn cách giữa các đơn vị
 const transformPrice = txt => {
@@ -79,18 +79,16 @@ const ProductList = () => {
         </div>
 
         <div className="col-lg-9 mb-4 mb-lg-0">
-          <div>
-            <div className={classes.headList}>
-              <ProductListSearch
-                onSearchProduct={setProductsData}
-                urlFetch={urlFetch}
-                // onSetCategory={setCategory}
-              />
-              <button className="px-1">
-                Default sorting
-                <FontAwesomeIcon icon={faAngleDown} className="ms-4" />
-              </button>
-            </div>
+          <div className={classes.headList}>
+            <ProductListSearch
+              onSearchProduct={setProductsData}
+              urlFetch={urlFetch}
+              // onSetCategory={setCategory}
+            />
+            <ProductListSort
+              products={productsData}
+              onSortProduct={setProductsData}
+            />
           </div>
           <div className="row">
             {isLoading && (
