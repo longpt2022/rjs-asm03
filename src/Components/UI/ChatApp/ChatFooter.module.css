@@ -1,13 +1,15 @@
 .chatFooter {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
 
   height: 63px;
   padding-right: 25% !important;
-  border-bottom-left-radius: 25px;
 
   background-color: #f9fafb;
+  border-top: 1px solid #e2e2e2;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 .chatFooter svg {
@@ -30,4 +32,10 @@
 .form-control:focus,
 .btn:focus {
   box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .chatFooter {
+    padding-right: 15px !important;
+  }
 }

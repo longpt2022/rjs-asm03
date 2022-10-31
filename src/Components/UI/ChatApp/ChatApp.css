@@ -33,7 +33,7 @@
 
 /* Vị trí của nút popup */
 .chat-btn {
-  position: absolute;
+  position: fixed;
   right: 14px;
   bottom: 30px;
   cursor: pointer;
@@ -56,20 +56,37 @@
 
 /* Vị trí của popup */
 .chat-app-wrapper {
-  position: absolute;
+  position: fixed;
   right: 5rem;
-  bottom: 5rem;
+  bottom: 10rem;
 
   width: 500px;
   opacity: 0;
   transition: all 0.4s;
 
-  border-radius: 25px;
+  background-color: #fff;
+  border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #check:checked ~ .chat-app-wrapper {
   opacity: 1;
+  animation: fadeInBottom 800ms;
+}
+
+/* fadeIn right and shake animation */
+@keyframes fadeInBottom {
+  0% {
+    /* opacity: 0; */
+    transform: translate(50%, 50%) scale(0) rotate(10deg);
+  }
+  50% {
+    transform: translate(0) scale(1) rotate(-5deg);
+  }
+  100% {
+    /* opacity: 1; */
+    transform: translate(0) scale(1) rotate(0deg);
+  }
 }
 
 /* css avatarImg */
@@ -89,4 +106,20 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar-thumb {
   background-color: var(--gray);
   border-radius: 50px;
+}
+
+@media (max-width: 768px) {
+  .chat-app-wrapper {
+    width: 60%;
+    right: 1.5rem;
+    bottom: 10rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .chat-app-wrapper {
+    width: 90%;
+    right: 1.5rem;
+    bottom: 10rem;
+  }
 }

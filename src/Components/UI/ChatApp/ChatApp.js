@@ -19,7 +19,7 @@ const ChatApp = () => {
         <FontAwesomeIcon icon={faFacebookMessenger} className="comment" />
       </label>
       <div className="chat-app-wrapper">
-        <div className="card" id="chat2">
+        <div id="chat2">
           <ChatHeader />
           <ChatBody />
           <ChatFooter />

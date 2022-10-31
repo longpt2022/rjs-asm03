@@ -10,7 +10,7 @@ import classes from './ChatFooter.module.css';
 
 const ChatFooter = props => {
   return (
-    <div className={`${classes.chatFooter} card-footer text-muted p-3`}>
+    <div className={`${classes.chatFooter} p-3`}>
       <img src={userIcon} alt="avatar 3" className="avatarImg mx-2" />
       <input
         type="text"

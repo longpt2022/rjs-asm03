@@ -15,28 +15,27 @@ const ChatBody = props => {
         </p>
       </div> */}
 
-      <div className="d-flex flex-row justify-content-end mb-4 pt-1">
+      <div className="d-flex flex-row justify-content-end mb-2">
         <div className={classes.customerMess}>
-          <p className="small p-2 me-3 mb-1 text-white text-end rounded-1">
-            Xin chào
-          </p>
-          <p className="small p-2 me-3 mb-1 text-white rounded-1">
+          <p className="small p-2 me-3 mb-2 text-white rounded-1">Xin chào</p>
+          <p className="small p-2 me-3 mb-2 text-white rounded-1">
             Làm thế nào để xem các sản phẩm
           </p>
+          {/* <span class="small ms-3 mb-3 pe-3 rounded-3 text-muted">23:58</span> */}
         </div>
       </div>
 
-      <div className="d-flex flex-row justify-content-start mb-4">
+      <div className="d-flex flex-row justify-content-start mb-2">
         <img src={userIcon} alt="avatar 1" className="avatarImg" />
         <div className={classes.adminMess}>
           <p
-            className="small p-2 ms-3 mb-1 rounded-1 text-muted"
+            className="small p-2 ms-3 mb-2 rounded-1 text-muted"
             style={{ backgroundColor: '#f5f6f7' }}
           >
             ADMIN: Chào bạn
           </p>
           <p
-            className="small p-2 ms-3 mb-1 rounded-1 text-muted"
+            className="small p-2 ms-3 mb-2 rounded-1 text-muted"
             style={{ backgroundColor: '#f5f6f7' }}
           >
             ADMIN: Bạn có thể vào mục Shop để xem các sản phẩm
