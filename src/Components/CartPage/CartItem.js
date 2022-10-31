@@ -46,7 +46,7 @@ const CartItem = props => {
 
       // toast thông báo thành công
       toast.success('Deleted!', {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 1000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -58,7 +58,7 @@ const CartItem = props => {
     } else {
       // toast thông báo hủy
       toast.warn('Canceled!', {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 1000,
         hideProgressBar: true,
         closeOnClick: true,

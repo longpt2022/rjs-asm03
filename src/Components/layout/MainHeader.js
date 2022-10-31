@@ -90,16 +90,56 @@ const MainHeader = () => {
               <li className="nav-item">{buttonNav('shop')}</li>
             </ul>
             <ul className="nav navbar-nav ms-auto w-100 justify-content-end">
-              <li className={`nav-item ${btnClasses}`}>
-                <FontAwesomeIcon
-                  icon={faCartFlatbed}
-                  className={classes.navIcon}
-                />
-                {buttonNav('cart')}
-              </li>
+              {isAuthenticated && (
+                <>
+                  <li className={`nav-item ${btnClasses}`}>
+                    <FontAwesomeIcon
+                      icon={faCartFlatbed}
+                      className={classes.navIcon}
+                      onClick={() => navigate('/cart')}
+                    />
+                    {buttonNav('cart')}
+                  </li>
+                  <li className="nav-item">
+                    <FontAwesomeIcon
+                      icon={faUser}
+                      className={classes.navIcon}
+                      onClick={() => navigate('/profile')}
+                    />
+                    <button
+                      className={
+                        location.pathname === '/profile' ? classes.active : ''
+                      }
+                      onClick={() => navigate('/profile')}
+                    >
+                      <>
+                        {currentUser.fullName}
+                        <FontAwesomeIcon
+                          icon={faCaretDown}
+                          className={`${classes.navIcon} text-dark ms-2 me-0`}
+                        />
+                      </>
+                    </button>
+                  </li>
+                  <li className="nav-item align-self-center">
+                    <button
+                      onClick={() => {
+                        dispatch(authActions.ON_LOGOUT());
+                        navigate('/login');
+                      }}
+                    >
+                      (Logout)
+                    </button>
+                  </li>
+                </>
+              )}
               {!isAuthenticated && (
                 <li className="nav-item">
-                  <FontAwesomeIcon icon={faUser} className={classes.navIcon} />
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    className={classes.navIcon}
+                    onClick={() => navigate('/login')}
+                  />
                   <button
                     className={
                       location.pathname === '/login' ||
@@ -110,32 +150,6 @@ const MainHeader = () => {
                     onClick={() => navigate('/login')}
                   >
                     Login
-                  </button>
-                </li>
-              )}
-              {isAuthenticated && (
-                <li className="nav-item">
-                  <FontAwesomeIcon icon={faUser} className={classes.navIcon} />
-                  <button
-                    className={
-                      location.pathname === '/profile' ? classes.active : ''
-                    }
-                    onClick={() => navigate('/profile')}
-                  >
-                    <>
-                      {currentUser.fullName}
-                      <FontAwesomeIcon
-                        icon={faCaretDown}
-                        className={`${classes.navIcon} text-dark ms-2 me-0`}
-                      />
-                    </>
-                  </button>
-                </li>
-              )}
-              {isAuthenticated && (
-                <li className="nav-item align-self-center">
-                  <button onClick={() => dispatch(authActions.ON_LOGOUT())}>
-                    (Logout)
                   </button>
                 </li>
               )}

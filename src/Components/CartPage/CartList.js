@@ -36,7 +36,7 @@ const CartList = () => {
     // ngăn hiển thị checkout page nếu chưa có cart nào
     if (listCart.length === 0) {
       toast.info('Continue shopping...', {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 2000,
         hideProgressBar: true,
         closeOnClick: true,

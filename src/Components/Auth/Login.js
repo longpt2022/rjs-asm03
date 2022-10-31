@@ -39,6 +39,9 @@ const Login = () => {
     let currentUser = userArr.find(acc => acc.email === enteredData.email);
     // console.log(currentUser);
 
+    if (enteredData.email === '') return;
+    if (enteredData.password === '') return;
+
     if (!currentUser) {
       setMessage('Tài khoản chưa đăng ký!');
       setEnteredPassword('');
@@ -58,6 +61,7 @@ const Login = () => {
       dispatch(authActions.ON_LOGIN(currentUser));
       alert('Đăng nhập thành công!');
       console.log(currentUser);
+      navigate('/');
     }
   };
 

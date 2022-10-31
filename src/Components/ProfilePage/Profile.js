@@ -17,7 +17,7 @@ const Profile = () => {
   const [enteredPhone, setEnteredPhone] = useState(currentUser.phone);
   const [enteredEmail, setEnteredEmail] = useState(currentUser.email);
   const [enteredAddress, setEnteredAddress] = useState(currentUser.address);
-  console.log(enteredFullName, enteredPhone, enteredEmail, enteredAddress);
+  // console.log(enteredFullName, enteredPhone, enteredEmail, enteredAddress);
 
   const fullNameChangeHandler = event => {
     event.preventDefault();
@@ -56,9 +56,7 @@ const Profile = () => {
               alt="avt"
             />
             <span className="font-weight-bold">Long Phạm</span>
-            <span className="text-black-50">
-              {enteredEmail || 'longpt271@mail.com'}
-            </span>
+            <span className="text-black-50">{enteredEmail || '@longpt27'}</span>
             <span> </span>
           </div>
         </div>

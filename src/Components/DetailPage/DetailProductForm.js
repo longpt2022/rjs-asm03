@@ -1,19 +1,21 @@
 import { useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from 'react-redux';
 
 // import react-toastify để tạo thông báo
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import classes from './DetailProductForm.module.css';
-import { useDispatch } from 'react-redux';
 import { cartActions } from 'store/cart';
 
 const DetailProductForm = props => {
   // Dùng useDispatch() cập nhật state redux
   const dispatch = useDispatch();
-  // Lấy dữ liệu cart state redux
+
+  // Lấy dữ liệu login state redux
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   const quantityInputRef = useRef();
 
@@ -22,6 +24,20 @@ const DetailProductForm = props => {
 
   const submitHandler = event => {
     event.preventDefault();
+
+    // Nếu chưa đăng nhập
+    if (!isAuthenticated) {
+      return toast.warning('Please login!', {
+        position: 'top-center',
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    }
 
     // lấy ra giá trị Quantity input
     const enteredQuantity = quantityInputRef.current.value;
@@ -55,7 +71,7 @@ const DetailProductForm = props => {
     );
 
     toast.success('Add success!', {
-      position: 'top-right',
+      position: 'top-center',
       autoClose: 1000,
       hideProgressBar: true,
       closeOnClick: true,
