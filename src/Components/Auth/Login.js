@@ -3,6 +3,10 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { authActions } from 'store/auth';
 
+// import react-toastify để tạo thông báo
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import classes from './Login.module.css';
 
 const Login = () => {
@@ -57,11 +61,28 @@ const Login = () => {
 
     // Xử lý nếu đăng nhập thành công
     if (userValidated) {
-      // cập nhật dữ liệu state Redux bằng action login
-      dispatch(authActions.ON_LOGIN(currentUser));
-      alert('Đăng nhập thành công!');
-      console.log(currentUser);
-      navigate('/');
+      // alert('Đăng nhập thành công!');
+      // console.log(currentUser);
+
+      // toast thông báo Login thành công
+      toast.success('Login success!', {
+        position: 'top-center',
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+
+      // set timeout login sau khi hiện thông báo
+      setTimeout(() => {
+        // cập nhật dữ liệu state Redux bằng action login
+        dispatch(authActions.ON_LOGIN(currentUser));
+
+        navigate('/');
+      }, 1500);
     }
   };
 
@@ -116,6 +137,7 @@ const Login = () => {
           </button>
         </div>
       </form>
+      <ToastContainer />
     </section>
   );
 };

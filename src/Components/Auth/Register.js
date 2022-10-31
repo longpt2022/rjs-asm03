@@ -1,6 +1,10 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// import react-toastify để tạo thông báo
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import classes from './Login.module.css';
 
 // Hàm kiểm tra input có dữ liệu không
@@ -65,10 +69,25 @@ const Register = () => {
       setMessage('');
       // Thêm 1 User vào 'userArr'
       userArr.push(enteredData);
-      // lưu lại dữ liệu vào LocalStorage
-      localStorage.setItem('userArr', JSON.stringify(userArr));
-      // Chuyển trang
-      navigate('/login');
+
+      // toast thông báo Login thành công
+      toast.success('Register success!', {
+        position: 'top-center',
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+
+      setTimeout(() => {
+        // lưu lại dữ liệu vào LocalStorage
+        localStorage.setItem('userArr', JSON.stringify(userArr));
+        // Chuyển trang
+        navigate('/login');
+      }, 1000);
     }
   };
 
@@ -124,6 +143,7 @@ const Register = () => {
           </button>
         </div>
       </form>
+      <ToastContainer />
     </section>
   );
 };
