@@ -34,6 +34,7 @@ const Register = () => {
       email: emailInputRef.current.value,
       password: passwordInputRef.current.value,
       phone: phoneInputRef.current.value,
+      address: '',
       orders: [],
     };
 

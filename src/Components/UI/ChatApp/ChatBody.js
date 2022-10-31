@@ -1,5 +1,6 @@
-import userIcon from 'img/chat-user.png';
 import { useSelector } from 'react-redux';
+
+import userIcon from 'img/chat-user.png';
 import classes from './ChatBody.module.css';
 
 const ChatBody = () => {

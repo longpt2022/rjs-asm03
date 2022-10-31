@@ -6,6 +6,7 @@ import Shop from './pages/ShopPage';
 import Detail from './pages/DetailPage';
 import Cart from './pages/CartPage';
 import Checkout from './pages/CheckoutPage';
+import Profile from './pages/ProfilePage';
 import Login from './pages/LoginPage';
 import Register from './pages/RegisterPage';
 import Layout from './Components/layout/Layout';
@@ -21,6 +22,7 @@ function App() {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<Navigate replace to="/home" />} />

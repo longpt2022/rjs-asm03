@@ -85,6 +85,7 @@ const CheckoutForm = props => {
         {
           products: orderedList,
           date: new Date(),
+          deliveryInfo: enteredData,
           total: props.transformPrice(props.totalQuantity),
         },
       ];

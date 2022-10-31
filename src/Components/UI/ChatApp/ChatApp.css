@@ -55,13 +55,13 @@
 }
 
 /* Vị trí của popup */
+
 .chat-app-wrapper {
   position: fixed;
   right: 5rem;
   bottom: 10rem;
 
   width: 500px;
-  opacity: 0;
   transition: all 0.4s;
 
   background-color: #fff;
@@ -69,7 +69,13 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.chat-app-wrapper {
+  display: none;
+  opacity: 0;
+}
+
 #check:checked ~ .chat-app-wrapper {
+  display: block;
   opacity: 1;
   animation: fadeInBottom 800ms;
 }

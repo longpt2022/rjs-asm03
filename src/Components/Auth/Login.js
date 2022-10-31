@@ -9,7 +9,7 @@ const Login = () => {
   // Dùng useNavigate() để điều hướng trang
   const navigate = useNavigate();
 
-  // dùng useRef() để lấy value input
+  // lấy value input
   const [enteredEmail, setEnteredEmail] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
 

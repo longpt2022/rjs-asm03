@@ -97,19 +97,31 @@ const MainHeader = () => {
                 />
                 {buttonNav('cart')}
               </li>
-              <li className="nav-item">
-                <FontAwesomeIcon icon={faUser} className={classes.navIcon} />
-                <button
-                  className={
-                    location.pathname === '/login' ||
-                    location.pathname === '/register'
-                      ? classes.active
-                      : ''
-                  }
-                  onClick={() => navigate('/login')}
-                >
-                  {!isAuthenticated && 'Login'}
-                  {isAuthenticated && (
+              {!isAuthenticated && (
+                <li className="nav-item">
+                  <FontAwesomeIcon icon={faUser} className={classes.navIcon} />
+                  <button
+                    className={
+                      location.pathname === '/login' ||
+                      location.pathname === '/register'
+                        ? classes.active
+                        : ''
+                    }
+                    onClick={() => navigate('/login')}
+                  >
+                    Login
+                  </button>
+                </li>
+              )}
+              {isAuthenticated && (
+                <li className="nav-item">
+                  <FontAwesomeIcon icon={faUser} className={classes.navIcon} />
+                  <button
+                    className={
+                      location.pathname === '/profile' ? classes.active : ''
+                    }
+                    onClick={() => navigate('/profile')}
+                  >
                     <>
                       {currentUser.fullName}
                       <FontAwesomeIcon
@@ -117,9 +129,9 @@ const MainHeader = () => {
                         className={`${classes.navIcon} text-dark ms-2 me-0`}
                       />
                     </>
-                  )}
-                </button>
-              </li>
+                  </button>
+                </li>
+              )}
               {isAuthenticated && (
                 <li className="nav-item align-self-center">
                   <button onClick={() => dispatch(authActions.ON_LOGOUT())}>
