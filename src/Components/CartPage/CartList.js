@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -116,4 +117,4 @@ const CartList = () => {
   );
 };
 
-export default CartList;
+export default React.memo(CartList);

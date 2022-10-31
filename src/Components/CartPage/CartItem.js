@@ -1,11 +1,8 @@
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
-
-// import react-toastify để tạo thông báo
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { cartActions } from 'store/cart';
 import classes from './CartItem.module.css';
@@ -42,31 +39,13 @@ const CartItem = props => {
   // Xử lý remove cart
   const clickRemoveHandler = id => {
     if (window.confirm('Are you sure?')) {
-      dispatch(cartActions.DELETE_CART(id));
+      dispatch(cartActions.DELETE_CART({ id: id, shouldListen: true }));
 
-      // toast thông báo thành công
-      toast.success('Deleted!', {
-        position: 'top-center',
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      // thông báo Xóa thành công
+      alert('Deleted!');
     } else {
-      // toast thông báo hủy
-      toast.warn('Canceled!', {
-        position: 'top-center',
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      // thông báo hủy
+      alert('Canceled!');
     }
   };
 
@@ -106,10 +85,9 @@ const CartItem = props => {
           onClick={clickRemoveHandler.bind(null, props.cart._id.$oid)}
           className="p-2 active-animation"
         />
-        <ToastContainer className="text-start" />
       </div>
     </li>
   );
 };
 
-export default CartItem;
+export default React.memo(CartItem);

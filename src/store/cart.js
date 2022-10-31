@@ -93,38 +93,41 @@ const cartSlice = createSlice({
         })
       );
     },
-    DELETE_CART(state, action) {
-      // Tìm id của item
-      const existingCartItemIndex = state.listCart.findIndex(
-        item => item._id.$oid === action.payload
-      );
-      const existingItem = state.listCart[existingCartItemIndex];
-
-      // Tính lại giá trị total
-      const updatedTotalQuantity =
-        state.totalQuantity - existingItem.price * existingItem.quantity;
-
-      // lấy ra tất cả cart có giá trị khác id payload nhận vào
-      let updatedListCart = state.listCart.filter(
-        item => item._id.$oid !== action.payload
-      );
-
-      // Giá trị trả về sau khi delete
-      state.listCart = updatedListCart;
-      state.totalQuantity = updatedTotalQuantity;
-
-      // Nếu k còn cart nào xóa khỏi storage
-      if (updatedListCart.length === 0) {
-        localStorage.removeItem('cart');
-      } else {
-        // lưu lại vào localStorage
-        localStorage.setItem(
-          'cart',
-          JSON.stringify({
-            listCart: updatedListCart,
-            totalQuantity: updatedTotalQuantity,
-          })
+    DELETE_CART(state, action = { id: '', shouldListen: false }) {
+      // Nếu nhận vào payload.shouldListen = true thì mới thực hiện
+      if (action.payload.shouldListen) {
+        // Tìm id của item
+        const existingCartItemIndex = state.listCart.findIndex(
+          item => item._id.$oid === action.payload.id
         );
+        const existingItem = state.listCart[existingCartItemIndex];
+
+        // Tính lại giá trị total
+        const updatedTotalQuantity =
+          state.totalQuantity - existingItem.price * existingItem.quantity;
+
+        // lấy ra tất cả cart có giá trị khác id payload nhận vào
+        let updatedListCart = state.listCart.filter(
+          item => item._id.$oid !== action.payload.id
+        );
+
+        // Giá trị trả về sau khi delete
+        state.listCart = updatedListCart;
+        state.totalQuantity = updatedTotalQuantity;
+
+        // Nếu k còn cart nào xóa khỏi storage
+        if (updatedListCart.length === 0) {
+          localStorage.removeItem('cart');
+        } else {
+          // lưu lại vào localStorage
+          localStorage.setItem(
+            'cart',
+            JSON.stringify({
+              listCart: updatedListCart,
+              totalQuantity: updatedTotalQuantity,
+            })
+          );
+        }
       }
     },
     SET_DEFAULT(state) {
