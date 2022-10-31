@@ -7,12 +7,11 @@ import ChatHeader from './ChatHeader';
 import ChatBody from './ChatBody';
 import ChatFooter from './ChatFooter';
 import './ChatApp.css';
-import classes from './ChatApp.module.css';
 
 // Sử dụng bootstrap 5 tạo giao diện
 const ChatApp = () => {
   return (
-    <div className={classes.chatApp}>
+    <div>
       <input type="checkbox" id="check" />
       <label className="chat-btn" htmlFor="check">
         <FontAwesomeIcon icon={faClose} className="close" />

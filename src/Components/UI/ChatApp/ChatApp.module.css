@@ -1,9 +1,0 @@
-/* CSS scroll bar */
-.chatApp::-webkit-scrollbar {
-  width: 10px;
-}
-
-.chatApp::-webkit-scrollbar-thumb {
-  background-color: var(--gray);
-  border-radius: 50px;
-}

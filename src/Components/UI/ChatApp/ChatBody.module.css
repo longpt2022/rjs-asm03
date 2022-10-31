@@ -37,3 +37,13 @@
     padding-right: 15px;
   }
 }
+
+/* CSS scroll bar */
+.chatBody::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chatBody::-webkit-scrollbar-thumb {
+  background-color: var(--gray);
+  border-radius: 50px;
+}
