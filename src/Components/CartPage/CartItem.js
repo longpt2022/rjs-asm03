@@ -45,21 +45,22 @@ const CartItem = props => {
       alert('Deleted!');
     } else {
       // thông báo hủy
-      alert('Canceled!');
+      // alert('Canceled!');
+      return;
     }
   };
 
   return (
     <li className={`${classes['cart-item']} no-copy-text row`}>
-      <div className="col-2">
+      <div className="col-md-2 col-4">
         <img src={props.cart.img1} alt={props.cart.name} className="w-100" />
       </div>
-      <h6 className="col-2">{props.cart.name}</h6>
-      <div className="col-2 text-secondary">
+      <h6 className="col-md-2 col-4">{props.cart.name}</h6>
+      <div className="col-md-2 col-4 text-secondary">
         <p className="mb-1">{props.transformPrice(props.cart.price)}</p>
         <span>VND</span>
       </div>
-      <div className="col-2 d-flex justify-content-center align-items-center">
+      <div className="col-md-2 col-4 d-flex justify-content-center align-items-center">
         <FontAwesomeIcon
           icon={faCaretLeft}
           onClick={clickLeftHandler.bind(null, props.cart)}
@@ -73,13 +74,13 @@ const CartItem = props => {
           className="p-2 active-animation"
         />
       </div>
-      <div className="col-2 text-secondary">
+      <div className="col-md-2 col-4 text-secondary">
         <p className="mb-1">
           {props.transformPrice(props.cart.price * props.cart.quantity)}
         </p>
         <span>VND</span>
       </div>
-      <div className="col-2 text-secondary">
+      <div className="col-md-2 col-4 text-secondary">
         <FontAwesomeIcon
           icon={faTrashCan}
           onClick={clickRemoveHandler.bind(null, props.cart._id.$oid)}

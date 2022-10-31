@@ -68,12 +68,12 @@ const CartList = () => {
         <div className="col-lg-8 text-center pe-lg-4">
           <ul className="p-0">
             <li className="row gx-0 bg-light pt-3 pb-2">
-              <h6 className="col-2">IMAGE</h6>
-              <h6 className="col-2">PRODUCT</h6>
-              <h6 className="col-2">PRICE</h6>
-              <h6 className="col-2">QUANTITY</h6>
-              <h6 className="col-2">TOTAL</h6>
-              <h6 className="col-2">REMOVE</h6>
+              <h6 className="col-md-2 col-4">IMAGE</h6>
+              <h6 className="col-md-2 col-4">PRODUCT</h6>
+              <h6 className="col-md-2 col-4">PRICE</h6>
+              <h6 className="col-md-2 col-4">QUANTITY</h6>
+              <h6 className="col-md-2 col-4">TOTAL</h6>
+              <h6 className="col-md-2 col-4">REMOVE</h6>
             </li>
             {hasCart &&
               listCart.map(cart => {
