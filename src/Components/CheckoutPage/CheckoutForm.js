@@ -13,7 +13,7 @@ const getTimeHandler = () => {
   const time =
     today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
   const dateTime = date + ' ' + time;
-  console.log(dateTime);
+  // console.log(dateTime);
 
   return dateTime;
 };
@@ -93,7 +93,7 @@ const CheckoutForm = props => {
           quantity: props.listCart[i].quantity,
         });
       }
-      console.log(orderedList);
+      // console.log(orderedList);
 
       // thêm data cart vào userArr[i]orders
       userArr[userOrderIndex].orders = [

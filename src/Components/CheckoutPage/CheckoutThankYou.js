@@ -15,7 +15,7 @@ const CheckoutThankYou = () => {
   // ẩn hiển thị checkout page (thankyou page) sau 30s
   setTimeout(() => {
     dispatch(checkoutActions.HIDE_checkout());
-    console.log('Hide checkout done!');
+    // console.log('Hide checkout done!');
   }, 10000);
 
   useEffect(() => {

@@ -1,0 +1,7 @@
+.profileOrder {
+  padding: 0 0 3rem;
+}
+
+.profileOrder li {
+  border-bottom: 1px solid #ccc;
+}
