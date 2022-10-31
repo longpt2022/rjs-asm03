@@ -1,8 +1,22 @@
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { authActions } from 'store/auth';
 import { cartActions } from 'store/cart';
 
 import classes from './CheckoutForm.module.css';
+
+const getTimeHandler = () => {
+  // Hàm lấy ra ngày giờ hiện tại
+  const today = new Date();
+  const date =
+    today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+  const time =
+    today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+  const dateTime = date + ' ' + time;
+  console.log(dateTime);
+
+  return dateTime;
+};
 
 const CheckoutForm = props => {
   // Dùng useNavigate() để điều hướng trang
@@ -62,6 +76,8 @@ const CheckoutForm = props => {
 
     // Validate dữ liệu hợp lệ
     if (window.confirm('Xác nhận đặt hàng!')) {
+      const dateTime = getTimeHandler();
+
       // Tìm index của user đặt hàng
       const userOrderIndex = userArr.findIndex(
         user => user.email === enteredData.email
@@ -77,20 +93,34 @@ const CheckoutForm = props => {
           quantity: props.listCart[i].quantity,
         });
       }
-      // console.log(orderedList);
+      console.log(orderedList);
 
       // thêm data cart vào userArr[i]orders
       userArr[userOrderIndex].orders = [
         ...userArr[userOrderIndex].orders,
         {
           products: orderedList,
-          date: new Date(),
+          date: dateTime,
           deliveryInfo: enteredData,
           total: props.transformPrice(props.totalQuantity),
         },
       ];
       // console.log(userArr[userOrderIndex]);
       // console.log(userArr);
+
+      // set lại new data order vào current user
+      currentUser.orders = [
+        ...currentUser.orders,
+        {
+          products: orderedList,
+          date: dateTime,
+          deliveryInfo: enteredData,
+          total: props.transformPrice(props.totalQuantity),
+        },
+      ];
+
+      // cập nhật dữ liệu currentUser state Redux bằng action login
+      dispatch(authActions.SET_CURRENT_USER(currentUser));
 
       // update lại state cart = 0
       dispatch(cartActions.SET_DEFAULT());

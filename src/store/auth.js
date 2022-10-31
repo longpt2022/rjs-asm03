@@ -34,6 +34,12 @@ const authSlice = createSlice({
       // Xóa current user khỏi local
       localStorage.removeItem('currentUser');
     },
+    SET_CURRENT_USER(state, action) {
+      // Lưu lại state
+      state.currentUser = action.payload;
+      // Lưu current user vào local
+      localStorage.setItem('currentUser', JSON.stringify(action.payload));
+    },
   },
 });
 
