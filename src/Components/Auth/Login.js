@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import Input from 'Components/UI/Input/Input';
 import { authActions } from 'store/auth';
 import { toastActions } from 'store/toast';
 import classes from './Login.module.css';
@@ -13,6 +14,9 @@ const Login = () => {
   // lấy value input
   const [enteredEmail, setEnteredEmail] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
+
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
 
   // Dùng useDispatch() cập nhật state redux
   const dispatch = useDispatch();
@@ -31,15 +35,22 @@ const Login = () => {
       password: enteredPassword,
     };
 
+    // Xử lý nếu chưa nhập => focus vào input đó
+    if (enteredData.email === '') {
+      emailInputRef.current.focus();
+      return;
+    } else if (enteredData.password === '') {
+      passwordInputRef.current.focus();
+      return;
+    }
+
     //--- optional: validation
     let userValidated = false;
     // Tìm thông tin current user
     let currentUser = userArr.find(acc => acc.email === enteredData.email);
     // console.log(currentUser);
 
-    if (enteredData.email === '') return;
-    if (enteredData.password === '') return;
-
+    // nếu k có thông tin current user
     if (!currentUser) {
       // toast thông báo (lấy từ store redux)
       dispatch(toastActions.SHOW_WARN('Tài khoản chưa đăng ký!'));
@@ -54,6 +65,7 @@ const Login = () => {
 
         // toast thông báo (lấy từ store redux)
         dispatch(toastActions.SHOW_WARN('Wrong password!'));
+        passwordInputRef.current.focus();
       }
     }
 
@@ -73,14 +85,10 @@ const Login = () => {
   };
 
   const emailChangeHandler = event => {
-    if (event.target.value.trim().length > 0) {
-    }
     setEnteredEmail(event.target.value);
   };
 
   const passwordChangeHandler = event => {
-    if (event.target.value.trim().length > 0) {
-    }
     setEnteredPassword(event.target.value);
   };
 
@@ -90,20 +98,20 @@ const Login = () => {
         <h3>Sign In</h3>
 
         <div className={classes.control}>
-          <input
+          <Input
+            ref={emailInputRef}
             type="email"
             id="email"
             placeholder="Email"
-            required
             value={enteredEmail}
             onChange={emailChangeHandler}
           />
 
-          <input
+          <Input
+            ref={passwordInputRef}
             type="password"
             id="password"
             placeholder="Password"
-            required
             value={enteredPassword}
             onChange={passwordChangeHandler}
           />

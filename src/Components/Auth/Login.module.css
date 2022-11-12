@@ -33,26 +33,12 @@
 }
 
 .control input {
-  font: inherit;
-  text-align: left;
-  color: #38015c;
-  width: 100%;
+  border-bottom: none !important;
   font-style: normal;
-
-  padding: 1rem;
-  border-top: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  border-left: 1px solid #ccc;
-  border-bottom: none;
 }
 
 .control input:last-child {
-  border-bottom: 1px solid #ccc;
-}
-
-.control input:hover,
-.control input:focus {
-  outline: none;
+  border-bottom: 1px solid #ccc !important;
 }
 
 .actions {
