@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
 import { authActions } from 'store/auth';
-
-// import react-toastify để tạo thông báo
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { toastActions } from 'store/toast';
 import classes from './Login.module.css';
 
 const Login = () => {
@@ -47,7 +44,9 @@ const Login = () => {
     if (enteredData.password === '') return;
 
     if (!currentUser) {
-      setMessage('Tài khoản chưa đăng ký!');
+      // toast thông báo (lấy từ store redux)
+      dispatch(toastActions.SHOW_SUCCESS('Tài khoản chưa đăng ký!'));
+
       setEnteredPassword('');
       // Kiểm tra Password
     } else {
@@ -55,7 +54,9 @@ const Login = () => {
         userValidated = true;
       } else {
         setEnteredPassword('');
-        setMessage('Wrong password!');
+
+        // toast thông báo (lấy từ store redux)
+        dispatch(toastActions.SHOW_WARN('Wrong password!'));
       }
     }
 
@@ -64,25 +65,13 @@ const Login = () => {
       // alert('Đăng nhập thành công!');
       // console.log(currentUser);
 
-      // toast thông báo Login thành công
-      toast.success('Login success!', {
-        position: 'top-center',
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      // toast thông báo Login thành công (lấy từ store redux)
+      dispatch(toastActions.SHOW_SUCCESS('Login success!'));
 
-      // set timeout login sau khi hiện thông báo
-      setTimeout(() => {
-        // cập nhật dữ liệu state Redux bằng action login
-        dispatch(authActions.ON_LOGIN(currentUser));
+      // cập nhật dữ liệu state Redux bằng action login
+      dispatch(authActions.ON_LOGIN(currentUser));
 
-        navigate('/');
-      }, 1500);
+      navigate('/');
     }
   };
 
@@ -137,7 +126,6 @@ const Login = () => {
           </button>
         </div>
       </form>
-      <ToastContainer />
     </section>
   );
 };

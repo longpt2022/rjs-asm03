@@ -5,6 +5,7 @@ import authReducer from './auth';
 import cartReducer from './cart';
 import checkoutReducer from './checkout';
 import chatAppReducer from './chatApp';
+import toastReducer from './toast';
 
 // Tạo Redux store
 const store = configureStore({
@@ -15,6 +16,7 @@ const store = configureStore({
     cart: cartReducer,
     checkout: checkoutReducer,
     chatApp: chatAppReducer,
+    toast: toastReducer,
   },
 });
 
