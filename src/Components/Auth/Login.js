@@ -22,9 +22,6 @@ const Login = () => {
   // Xử lý null localStorage
   let userArr = dataGetStorage ? JSON.parse(dataGetStorage) : [];
 
-  // State lưu message nếu validate lỗi
-  const [message, setMessage] = useState('');
-
   const submitHandler = event => {
     event.preventDefault();
     // console.log(userArr);
@@ -45,7 +42,7 @@ const Login = () => {
 
     if (!currentUser) {
       // toast thông báo (lấy từ store redux)
-      dispatch(toastActions.SHOW_SUCCESS('Tài khoản chưa đăng ký!'));
+      dispatch(toastActions.SHOW_WARN('Tài khoản chưa đăng ký!'));
 
       setEnteredPassword('');
       // Kiểm tra Password
@@ -77,14 +74,12 @@ const Login = () => {
 
   const emailChangeHandler = event => {
     if (event.target.value.trim().length > 0) {
-      setMessage('');
     }
     setEnteredEmail(event.target.value);
   };
 
   const passwordChangeHandler = event => {
     if (event.target.value.trim().length > 0) {
-      setMessage('');
     }
     setEnteredPassword(event.target.value);
   };
@@ -115,8 +110,7 @@ const Login = () => {
         </div>
 
         <div className={classes.actions}>
-          {!message && <button>SIGN IN</button>}
-          {message && <button className="text-danger">{message}</button>}
+          <button>SIGN IN</button>
         </div>
 
         <div className={classes.toggle}>

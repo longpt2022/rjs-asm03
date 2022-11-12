@@ -1,18 +1,16 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-// import react-toastify để tạo thông báo
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { toastActions } from 'store/toast';
 import classes from './Login.module.css';
-
-// Hàm kiểm tra input có dữ liệu không
-const isRequired = value => (value.trim() ? true : false);
 
 const Register = () => {
   // Dùng useNavigate() để điều hướng trang
   const navigate = useNavigate();
+
+  // Dùng useDispatch() redux
+  const dispatch = useDispatch();
 
   // dùng useRef() để lấy value input
   const fullNameInputRef = useRef();
@@ -24,9 +22,6 @@ const Register = () => {
   const dataGetStorage = localStorage.getItem('userArr');
   // Xử lý null localStorage
   let userArr = dataGetStorage ? JSON.parse(dataGetStorage) : [];
-
-  // State lưu message nếu validate lỗi
-  const [message, setMessage] = useState('');
 
   // Xử lý ấn submit form
   const submitHandler = event => {
@@ -42,6 +37,18 @@ const Register = () => {
       orders: [],
     };
 
+    // --- có thuộc tính "required" trong input rồi
+    // Validate này k cần thiết nữa
+    // if (enteredData.fullName.trim() === '') {
+    //  alert('Enter Full Name!'));
+    // } else if (enteredData.email.trim() === '') {
+    //  alert('Enter Email!'));
+    // } else if (enteredData.password.trim() === '') {
+    //  alert('Enter Password!'));
+    // } else if (enteredData.phone.trim() === '') {
+    //  alert('Enter Phone number!'));
+    // }
+
     // Kiểm tra trùng Username
     // console.log(userArr);
     let sameEmail;
@@ -53,41 +60,21 @@ const Register = () => {
     }
 
     // Validate dữ liệu hợp lệ
-    if (!isRequired(enteredData.fullName)) {
-      setMessage('Vui lòng nhập Full Name!');
-    } else if (!isRequired(enteredData.email)) {
-      setMessage('Vui lòng nhập Email!');
-    } else if (sameEmail) {
-      setMessage('Email đã đăng ký!');
-    } else if (!isRequired(enteredData.password)) {
-      setMessage('Vui lòng nhập Password!');
+    if (sameEmail) {
+      dispatch(toastActions.SHOW_WARN('Email đã đăng ký!'));
     } else if (enteredData.password.length < 8) {
-      setMessage('Password nên nhiều hơn 8 ký tự!');
-    } else if (!isRequired(enteredData.phone)) {
-      setMessage('Vui lòng nhập Phone number!');
+      dispatch(toastActions.SHOW_WARN('Password nên nhiều hơn 8 ký tự!'));
     } else {
-      setMessage('');
       // Thêm 1 User vào 'userArr'
       userArr.push(enteredData);
 
       // toast thông báo Login thành công
-      toast.success('Register success!', {
-        position: 'top-center',
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      dispatch(toastActions.SHOW_SUCCESS('Register success!'));
 
-      setTimeout(() => {
-        // lưu lại dữ liệu vào LocalStorage
-        localStorage.setItem('userArr', JSON.stringify(userArr));
-        // Chuyển trang
-        navigate('/login');
-      }, 1000);
+      // lưu lại dữ liệu vào LocalStorage
+      localStorage.setItem('userArr', JSON.stringify(userArr));
+      // Chuyển trang
+      navigate('/login');
     }
   };
 
@@ -103,7 +90,6 @@ const Register = () => {
             placeholder="Full Name"
             required
             ref={fullNameInputRef}
-            onChange={() => setMessage('')}
           />
           <input
             type="email"
@@ -111,7 +97,6 @@ const Register = () => {
             placeholder="Email"
             required
             ref={emailInputRef}
-            onChange={() => setMessage('')}
           />
           <input
             type="password"
@@ -119,7 +104,6 @@ const Register = () => {
             placeholder="Password"
             required
             ref={passwordInputRef}
-            onChange={() => setMessage('')}
           />
           <input
             type="number"
@@ -127,13 +111,11 @@ const Register = () => {
             placeholder="Phone"
             required
             ref={phoneInputRef}
-            onChange={() => setMessage('')}
           />
         </div>
 
         <div className={classes.actions}>
-          {!message && <button>SIGN UP</button>}
-          {message && <button className="text-danger">{message}</button>}
+          <button>SIGN UP</button>
         </div>
 
         <div className={classes.toggle}>
@@ -143,7 +125,6 @@ const Register = () => {
           </button>
         </div>
       </form>
-      <ToastContainer />
     </section>
   );
 };
