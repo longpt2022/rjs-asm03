@@ -5,6 +5,7 @@ import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
 import { cartActions } from 'store/cart';
+import { toastActions } from 'store/toast';
 import classes from './CartItem.module.css';
 
 const CartItem = props => {
@@ -42,10 +43,10 @@ const CartItem = props => {
       dispatch(cartActions.DELETE_CART({ id: id, shouldListen: true }));
 
       // thông báo Xóa thành công
-      alert('Deleted!');
+      dispatch(toastActions.SHOW_SUCCESS('Deleted!'));
     } else {
       // thông báo hủy
-      // alert('Canceled!');
+      dispatch(toastActions.SHOW_WARN('Canceled!'));
       return;
     }
   };

@@ -1,8 +1,12 @@
 import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
+import { toastActions } from 'store/toast';
 import classes from './Contact.module.css';
 
 const Contact = () => {
+  const dispatch = useDispatch();
+
   const emailInputRef = useRef();
 
   // Hàm submit contact form
@@ -12,6 +16,7 @@ const Contact = () => {
     const enteredEmail = emailInputRef.current.value;
 
     enteredEmail && console.log(enteredEmail);
+    enteredEmail && dispatch(toastActions.SHOW_SUCCESS('Subscribe success!'));
   };
 
   return (
@@ -28,6 +33,7 @@ const Contact = () => {
           <input
             type="email"
             placeholder="Enter your email address"
+            required
             ref={emailInputRef}
           />
           <button>Subscribe</button>

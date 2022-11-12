@@ -1,11 +1,14 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGift } from '@fortawesome/free-solid-svg-icons';
 
+import { toastActions } from 'store/toast';
 import Button from 'Components/UI/Button/Button';
 import classes from './CartTotal.module.css';
 
 const CartTotal = props => {
+  const dispatch = useDispatch();
+
   const totalQuantity = useSelector(state => state.cart.totalQuantity);
 
   // Hàm cộng tổng tất cả quantity có trong listCart
@@ -36,7 +39,11 @@ const CartTotal = props => {
       </div>
       <div className={classes.coupon}>
         <input type="text" placeholder="Enter your coupon" />
-        <Button>
+        <Button
+          onClick={() => {
+            dispatch(toastActions.SHOW_WARN('Tính năng này chưa khả dụng!'));
+          }}
+        >
           <FontAwesomeIcon icon={faGift} className="me-2" />
           Apply coupon
         </Button>

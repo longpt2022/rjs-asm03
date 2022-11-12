@@ -4,12 +4,9 @@ import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-// import react-toastify để tạo thông báo
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-import classes from './DetailProductForm.module.css';
 import { cartActions } from 'store/cart';
+import { toastActions } from 'store/toast';
+import classes from './DetailProductForm.module.css';
 
 const DetailProductForm = props => {
   const navigate = useNavigate();
@@ -28,9 +25,11 @@ const DetailProductForm = props => {
   const submitHandler = event => {
     event.preventDefault();
 
-    // Nếu chưa đăng nhập
+    // Nếu chưa đăng nhập: chuyển trang và return
     if (!isAuthenticated) {
       navigate('/login');
+      // Nếu k return đoạn code ở dưới vẫn chạy bt
+      return;
     }
 
     // lấy ra giá trị Quantity input
@@ -64,16 +63,8 @@ const DetailProductForm = props => {
       })
     );
 
-    toast.success('Add success!', {
-      position: 'top-center',
-      autoClose: 1000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    });
+    // Thông báo add thành công
+    dispatch(toastActions.SHOW_SUCCESS('Add success!'));
   };
 
   // Xử lý ấn giảm
@@ -115,7 +106,6 @@ const DetailProductForm = props => {
 
         <button className="no-copy-text">Add to cart</button>
       </form>
-      <ToastContainer />
 
       {quantityIsValid && <p className="mt-1 text-white no-copy-text">.</p>}
       {!quantityIsValid && (

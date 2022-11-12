@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCartFlatbed,
   faUser,
   faCaretDown,
 } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { authActions } from 'store/auth';
+import { toastActions } from 'store/toast';
 import classes from './MainHeader.module.css';
 
 const MainHeader = () => {
@@ -125,6 +126,7 @@ const MainHeader = () => {
                     <button
                       onClick={() => {
                         dispatch(authActions.ON_LOGOUT());
+                        dispatch(toastActions.SHOW_SUCCESS('Logout success!'));
                         navigate('/login');
                       }}
                     >

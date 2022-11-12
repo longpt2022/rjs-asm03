@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import userIcon from 'img/profile-user.png';
+import { toastActions } from 'store/toast';
 
 const ProfileFormInfo = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector(state => state.auth.currentUser);
 
   const [enteredFullName, setEnteredFullName] = useState(currentUser.fullName);
@@ -35,6 +37,8 @@ const ProfileFormInfo = () => {
   const submitHandler = event => {
     event.preventDefault();
     console.log(enteredFullName, enteredPhone, enteredEmail, enteredAddress);
+
+    dispatch(toastActions.SHOW_WARN('Tính năng này chưa khả dụng!'));
   };
 
   return (

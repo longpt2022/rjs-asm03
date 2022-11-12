@@ -7,14 +7,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
-// import react-toastify để tạo thông báo
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 import CartItem from './CartItem';
 import CartTotal from './CartTotal';
-import classes from './CartList.module.css';
 import { checkoutActions } from 'store/checkout';
+import { toastActions } from 'store/toast';
+import classes from './CartList.module.css';
 
 // Hàm chuyển đổi thành dạng chuỗi và bổ sung các dấu chấm ngăn cách giữa các đơn vị
 const transformPrice = txt => {
@@ -36,16 +33,7 @@ const CartList = () => {
   const btnCheckoutHandler = () => {
     // ngăn hiển thị checkout page nếu chưa có cart nào
     if (listCart.length === 0) {
-      toast.info('Continue shopping...', {
-        position: 'top-center',
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      dispatch(toastActions.SHOW_INFO('Continue shopping...'));
     } else {
       // cho phép hiển thị checkout page chỉ khi bấm nút checkout
       dispatch(checkoutActions.SHOW_checkout());
@@ -57,7 +45,6 @@ const CartList = () => {
 
   return (
     <section className="pb-5">
-      <ToastContainer />
       <div className="d-flex justify-content-between bg-light p-5 mb-4">
         <h4 className="p-4">CART</h4>
         <span className="p-4 text-secondary">CART</span>
