@@ -12,16 +12,24 @@ const CheckoutThankYou = () => {
   // điều hướng trang
   const navigate = useNavigate();
 
-  // ẩn hiển thị checkout page (thankyou page) sau 30s
-  setTimeout(() => {
-    dispatch(checkoutActions.HIDE_checkout());
-    // console.log('Hide checkout done!');
-  }, 10000);
-
   useEffect(() => {
     // tự động scroll về đầu trang
     window.scrollTo(0, 0);
-  }, [dispatch]);
+
+    // ẩn hiển thị checkout page (thankyou page) sau 8s
+    const hideThankPage = setTimeout(() => {
+      dispatch(checkoutActions.HIDE_checkout());
+      navigate('/');
+      console.log('Hide ThankPage done!');
+    }, 8000);
+
+    //-- Using the useEffect Cleanup Function
+    // Tránh setTimeout nhiều lần khi thay đổi url
+    // chỉ set 1 lần khi mở trang
+    return () => {
+      clearTimeout(hideThankPage);
+    };
+  }, [dispatch, navigate]);
 
   return (
     <section className={`${classes['thankyou-wrapper']} container py-5 my-5`}>
