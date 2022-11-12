@@ -1,7 +1,8 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import Input from 'Components/UI/Input/Input';
 import { toastActions } from 'store/toast';
 import classes from './Login.module.css';
 
@@ -12,16 +13,22 @@ const Register = () => {
   // Dùng useDispatch() redux
   const dispatch = useDispatch();
 
+  // Lấy data từ localStorage
+  const dataGetStorage = localStorage.getItem('userArr');
+  // Xử lý null localStorage
+  let userArr = dataGetStorage ? JSON.parse(dataGetStorage) : [];
+
+  // lấy value input
+  const [enteredFullName, setEnteredFullName] = useState('');
+  const [enteredEmail, setEnteredEmail] = useState('');
+  const [enteredPassword, setEnteredPassword] = useState('');
+  const [enteredPhone, setEnteredPhone] = useState('');
+
   // dùng useRef() để lấy value input
   const fullNameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const phoneInputRef = useRef();
-
-  // Lấy data từ localStorage
-  const dataGetStorage = localStorage.getItem('userArr');
-  // Xử lý null localStorage
-  let userArr = dataGetStorage ? JSON.parse(dataGetStorage) : [];
 
   // Xử lý ấn submit form
   const submitHandler = event => {
@@ -29,25 +36,36 @@ const Register = () => {
 
     // optional: Add validation
     const enteredData = {
-      fullName: fullNameInputRef.current.value,
-      email: emailInputRef.current.value,
-      password: passwordInputRef.current.value,
-      phone: phoneInputRef.current.value,
+      fullName: enteredFullName,
+      email: enteredEmail,
+      password: enteredPassword,
+      phone: enteredPhone,
       address: '',
       orders: [],
     };
 
-    // --- có thuộc tính "required" trong input rồi
-    // Validate này k cần thiết nữa
-    // if (enteredData.fullName.trim() === '') {
-    //  alert('Enter Full Name!'));
-    // } else if (enteredData.email.trim() === '') {
-    //  alert('Enter Email!'));
-    // } else if (enteredData.password.trim() === '') {
-    //  alert('Enter Password!'));
-    // } else if (enteredData.phone.trim() === '') {
-    //  alert('Enter Phone number!'));
-    // }
+    // Validate dữ liệu
+    if (enteredData.fullName === '') {
+      fullNameInputRef.current.focus();
+      return;
+    } else if (enteredData.email === '') {
+      emailInputRef.current.focus();
+      return;
+    } else if (enteredData.password === '') {
+      passwordInputRef.current.focus();
+      return;
+    } else if (enteredData.phone === '') {
+      phoneInputRef.current.focus();
+      return;
+    } else if (enteredData.password.length < 8) {
+      dispatch(toastActions.SHOW_WARN('Password nên nhiều hơn 8 ký tự!'));
+      passwordInputRef.current.focus();
+      return;
+    } else if (enteredData.phone.length < 10 || enteredData.phone.length > 11) {
+      dispatch(toastActions.SHOW_WARN('Phone needs 10 or 11 numbers!'));
+      phoneInputRef.current.focus();
+      return;
+    }
 
     // Kiểm tra trùng Username
     // console.log(userArr);
@@ -62,8 +80,7 @@ const Register = () => {
     // Validate dữ liệu hợp lệ
     if (sameEmail) {
       dispatch(toastActions.SHOW_WARN('Email đã đăng ký!'));
-    } else if (enteredData.password.length < 8) {
-      dispatch(toastActions.SHOW_WARN('Password nên nhiều hơn 8 ký tự!'));
+      return;
     } else {
       // Thêm 1 User vào 'userArr'
       userArr.push(enteredData);
@@ -78,39 +95,60 @@ const Register = () => {
     }
   };
 
+  // Value input change handlers
+  const fullNameChangeHandler = event => {
+    setEnteredFullName(event.target.value);
+  };
+
+  const emailChangeHandler = event => {
+    setEnteredEmail(event.target.value);
+  };
+
+  const passwordChangeHandler = event => {
+    setEnteredPassword(event.target.value);
+  };
+
+  const phoneChangeHandler = event => {
+    setEnteredPhone(event.target.value);
+  };
+
   return (
     <section className={classes.auth}>
       <form className={classes.form} onSubmit={submitHandler}>
         <h3>Sign Up</h3>
 
         <div className={classes.control}>
-          <input
+          <Input
+            ref={fullNameInputRef}
             type="text"
             id="fullName"
             placeholder="Full Name"
-            required
-            ref={fullNameInputRef}
+            value={enteredFullName}
+            onChange={fullNameChangeHandler}
           />
-          <input
+          <Input
+            ref={emailInputRef}
             type="email"
             id="email"
             placeholder="Email"
-            required
-            ref={emailInputRef}
+            value={enteredEmail}
+            onChange={emailChangeHandler}
           />
-          <input
+          <Input
+            ref={passwordInputRef}
             type="password"
             id="password"
             placeholder="Password"
-            required
-            ref={passwordInputRef}
+            value={enteredPassword}
+            onChange={passwordChangeHandler}
           />
-          <input
+          <Input
+            ref={phoneInputRef}
             type="number"
             id="phone"
             placeholder="Phone"
-            required
-            ref={phoneInputRef}
+            value={enteredPhone}
+            onChange={phoneChangeHandler}
           />
         </div>
 
