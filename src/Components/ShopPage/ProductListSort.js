@@ -27,24 +27,29 @@ const ProductListSort = props => {
   const sortedProducts = sortProducts(props.products, isSortingAscending);
 
   // Xử lý click sort
-  const changeDefaultHandler = () => {
-    navigate('/shop');
-    props.onSortProduct(sortedProducts);
+  const clickAscendingHandler = () => {
+    // Nếu isSortingAscending === 'asc'
+    !!isSortingAscending &&
+      navigate({
+        pathname: location.pathname,
+        search: '?sort=desc',
+      });
+    !!isSortingAscending && props.onSortProduct(sortedProducts);
   };
 
-  const changeAscendingHandler = () => {
-    navigate('/shop?sort=desc');
-    props.onSortProduct(sortedProducts);
-  };
-
-  const changeDescendingHandler = () => {
-    navigate('/shop?sort=asc');
-    props.onSortProduct(sortedProducts);
+  const clickDescendingHandler = () => {
+    // Nếu isSortingAscending !== 'asc'
+    !isSortingAscending &&
+      navigate({
+        pathname: location.pathname,
+        search: '?sort=asc',
+      });
+    !isSortingAscending && props.onSortProduct(sortedProducts);
   };
 
   return (
     <div className={classes.dropdown}>
-      <button onClick={changeDefaultHandler} className={classes.defaultBtn}>
+      <button className={classes.defaultBtn}>
         Default sorting
         {isSortingAscending ? (
           <FontAwesomeIcon icon={faAngleDown} className="ms-4" />
@@ -52,12 +57,20 @@ const ProductListSort = props => {
           <FontAwesomeIcon icon={faAngleUp} className="ms-4" />
         )}
       </button>
-      <ul className={`${classes['dropdown-content']} list-group`}>
-        <li className="list-group-item list-group-item-action">
-          <button onClick={changeAscendingHandler}>Ascending</button>
+      <ul className={`${classes['dropdown-content']} list-group no-copy-text`}>
+        <li
+          className="list-group-item list-group-item-action"
+          onClick={clickAscendingHandler}
+        >
+          <FontAwesomeIcon icon={faAngleUp} className="me-2" />
+          Ascending
         </li>
-        <li className="list-group-item list-group-item-action">
-          <button onClick={changeDescendingHandler}>Descending</button>
+        <li
+          className="list-group-item list-group-item-action"
+          onClick={clickDescendingHandler}
+        >
+          <FontAwesomeIcon icon={faAngleDown} className="me-2" />
+          Descending
         </li>
       </ul>
     </div>

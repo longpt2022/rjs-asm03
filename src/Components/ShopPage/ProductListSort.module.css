@@ -31,8 +31,6 @@
   display: block;
 }
 
-.dropdown-content button {
-  width: 100%;
-  border: none;
-  background-color: transparent;
+.dropdown-content li {
+  cursor: pointer;
 }
