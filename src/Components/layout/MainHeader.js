@@ -13,11 +13,6 @@ import { toastActions } from 'store/toast';
 import classes from './MainHeader.module.css';
 
 const MainHeader = () => {
-  const [isShowMenuMobile, setIsShowMenuMobile] = useState(false);
-
-  // Lấy currentUser state redux
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-  const currentUser = useSelector(state => state.auth.currentUser);
   // Dùng useDispatch() cập nhật state redux
   const dispatch = useDispatch();
 
@@ -28,7 +23,13 @@ const MainHeader = () => {
   const location = useLocation();
   // console.log(location.pathname);
 
-  // Tạo button nav
+  // Lấy currentUser state redux
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const currentUser = useSelector(state => state.auth.currentUser);
+
+  const [isShowMenuMobile, setIsShowMenuMobile] = useState(false);
+
+  // Tạo button nav active css
   const buttonNav = name => {
     // Tạo path
     const path = `/${name}`;
@@ -39,10 +40,7 @@ const MainHeader = () => {
     return (
       <button
         className={location.pathname === path ? classes.active : ''}
-        onClick={() => {
-          navigate(path);
-          setIsShowMenuMobile(false);
-        }}
+        onClick={() => setIsShowMenuMobile(false)}
       >
         {nameBtn}
       </button>
@@ -77,7 +75,7 @@ const MainHeader = () => {
     setIsShowMenuMobile(prevState => !prevState);
   };
 
-  const navigateAndCloseMenu = path => {
+  const clickNavHandler = path => {
     if (isShowMenuMobile) {
       navigate(path);
       setIsShowMenuMobile(false);
@@ -109,47 +107,52 @@ const MainHeader = () => {
             id="collapsingNavbar"
           >
             <ul className="navbar-nav w-100 justify-content-md-start">
-              <li className="nav-item">{buttonNav('home')}</li>
-              <li className="nav-item">{buttonNav('shop')}</li>
+              <li className="nav-item" onClick={() => clickNavHandler('/home')}>
+                {buttonNav('home')}
+              </li>
+              <li className="nav-item" onClick={() => clickNavHandler('/shop')}>
+                {buttonNav('shop')}
+              </li>
             </ul>
             <ul className="nav navbar-nav ms-auto w-100 justify-content-md-end">
               {isAuthenticated && (
                 <>
-                  <li className={`nav-item ${btnClasses}`}>
+                  <li
+                    className={`nav-item ${btnClasses}`}
+                    onClick={() => clickNavHandler('/cart')}
+                  >
                     <FontAwesomeIcon
                       icon={faCartFlatbed}
                       className={classes.navIcon}
-                      onClick={() => navigateAndCloseMenu('/cart')}
                     />
                     {buttonNav('cart')}
                   </li>
-                  <li className="nav-item">
+                  <li
+                    className="nav-item"
+                    onClick={() => clickNavHandler('/profile')}
+                  >
                     <FontAwesomeIcon
                       icon={faUser}
                       className={classes.navIcon}
-                      onClick={() => navigateAndCloseMenu('/profile')}
                     />
                     <button
                       className={
                         location.pathname === '/profile' ? classes.active : ''
                       }
-                      onClick={() => navigateAndCloseMenu('/profile')}
                     >
-                      <>
-                        {currentUser.fullName}
-                        <FontAwesomeIcon
-                          icon={faCaretDown}
-                          className={`${classes.navIcon} text-dark ms-2 me-0`}
-                        />
-                      </>
+                      {currentUser.fullName}
                     </button>
+                    <FontAwesomeIcon
+                      icon={faCaretDown}
+                      className={`${classes.navIcon} text-dark ms-2 me-0`}
+                    />
                   </li>
                   <li className="nav-item">
                     <button
                       onClick={() => {
                         dispatch(authActions.ON_LOGOUT());
                         dispatch(toastActions.SHOW_SUCCESS('Logout success!'));
-                        navigateAndCloseMenu('/login');
+                        clickNavHandler('/login');
                       }}
                     >
                       (Logout)
@@ -162,7 +165,7 @@ const MainHeader = () => {
                   <FontAwesomeIcon
                     icon={faUser}
                     className={classes.navIcon}
-                    onClick={() => navigateAndCloseMenu('/login')}
+                    onClick={() => clickNavHandler('/login')}
                   />
                   <button
                     className={
@@ -171,7 +174,7 @@ const MainHeader = () => {
                         ? classes.active
                         : ''
                     }
-                    onClick={() => navigateAndCloseMenu('/login')}
+                    onClick={() => clickNavHandler('/login')}
                   >
                     Login
                   </button>
