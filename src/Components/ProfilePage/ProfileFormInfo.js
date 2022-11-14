@@ -47,7 +47,7 @@ const ProfileFormInfo = () => {
         <div className="col-md-3 border-right">
           <div className="d-flex flex-column align-items-center text-center p-3 py-5">
             <img
-              className="rounded-circle mt-5"
+              className="rounded-circle mt-md-5"
               width="150px"
               src={userIcon}
               alt="avt"

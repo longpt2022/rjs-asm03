@@ -52,6 +52,27 @@ nav button {
   }
 }
 
+@media (max-width: 768px) {
+  .positionMM {
+    position: relative;
+  }
+
+  .mobileNavItems {
+    position: absolute;
+    top: 3rem;
+
+    z-index: 2;
+    background-color: var(--white);
+
+    width: 95.5% !important;
+    text-align: center;
+  }
+
+  .mobileNavItems li {
+    margin: 0;
+  }
+}
+
 /* CSS hiệu ứng bump add cart*/
 .bump {
   animation: bump 300ms ease-out;
